@@ -20,7 +20,7 @@ const Navbar = () => {
                         {navItems}
                     </ul>
                 </div>
-                <Link to={'/'}><ProFastLogo /></Link>
+                <Link className='pl-5' to={'/'}><ProFastLogo /></Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
