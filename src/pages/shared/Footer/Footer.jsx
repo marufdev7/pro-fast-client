@@ -14,7 +14,7 @@ const Footer = () => {
                     From personal packages to business shipments — we deliver on time, every time.
                 </p>
 
-                <div className="border-t border-b border-dashed border-gray-600 my-6 py-3 flex flex-wrap justify-center gap-6 text-sm text-gray-300">
+                <div className="border-t border-b border-dashed border-green-700 my-6 py-3 flex flex-wrap justify-center gap-6 text-sm text-gray-300">
                     <a href="#">Services</a>
                     <a href="#">Coverage</a>
                     <a href="#">About Us</a>
