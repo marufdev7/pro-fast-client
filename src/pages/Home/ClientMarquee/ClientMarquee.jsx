@@ -4,7 +4,7 @@ import brands from "../../../assets/data/brands";
 
 const ClientMarquee = () => {
     return (
-        <section className="py-16 px-4">
+        <section className="py-12 px-4">
             <div className="max-w-7xl mx-auto text-center">
                 <h2 className="text-2xl md:text-3xl font-bold text-[#03373D] mb-8">
                     We've helped thousands of sales teams
@@ -28,7 +28,6 @@ const ClientMarquee = () => {
                         </div>
                     ))}
                 </Marquee>
-                <hr className="my-8 text-[#03373D] border-dashed" />
             </div>
         </section>
     );

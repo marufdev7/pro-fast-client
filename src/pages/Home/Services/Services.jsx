@@ -22,7 +22,7 @@ const iconMap = {
 
 const Services = () => {
     return (
-        <section className="py-16 px-4 bg-[#03373D] rounded-2xl">
+        <section className="py-16 px-4 bg-[#003B3F]/90 rounded-2xl">
             <div className="max-w-5xl mx-auto text-center">
                 <h2 className="text-4xl text-white font-extrabold mb-3">Our Services</h2>
                 <p className="text-sm text-gray-300 max-w-2xl mx-auto">

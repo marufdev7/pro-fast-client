@@ -11,7 +11,9 @@ const Home = () => {
             <Banner />
             <Services />
             <ClientMarquee />
+            <hr className="mb-14 text-[#003B3F]/90 max-w-7xl mx-auto border-dashed" />
             <Features />
+            <hr className="mt-14 mb-14 text-[#003B3F]/90 max-w-7xl mx-auto border-dashed" />
             <BeMerchant />
         </div>
     );

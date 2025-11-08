@@ -5,7 +5,7 @@ import FeatureCard from './FeatureCard';
 const Features = () => {
     return (
         <section>
-            <div className="max-w-7xl mx-auto mb-8">
+            <div className="max-w-7xl mx-auto mb-8 mt-12">
                 <div className="flex flex-col gap-6">
                     {features.map((feature) => (
                         <FeatureCard key={feature.id} feature={feature} />
