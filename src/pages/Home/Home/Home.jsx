@@ -3,6 +3,7 @@ import Banner from '../Banner/Banner';
 import Services from '../Services/Services';
 import ClientMarquee from '../ClientMarquee/ClientMarquee';
 import Features from '../Features/Features';
+import BeMerchant from '../BeMerchant/BeMerchant';
 
 const Home = () => {
     return (
@@ -11,6 +12,7 @@ const Home = () => {
             <Services />
             <ClientMarquee />
             <Features />
+            <BeMerchant />
         </div>
     );
 };
