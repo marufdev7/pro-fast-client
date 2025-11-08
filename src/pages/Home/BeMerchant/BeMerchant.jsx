@@ -5,6 +5,7 @@ import boxImage from '../../../assets/location-merchant.png';
 const BeMerchant = () => {
     return (
         <section
+            data-aos="fade-up"
             className="relative rounded-2xl max-w-7xl mx-auto overflow-hidden my-12"
             style={{
                 backgroundImage: `url(${bgImage})`,
@@ -30,7 +31,7 @@ const BeMerchant = () => {
                         <button className="bg-[#C7F033] text-black font-bold px-6 py-2 rounded-full hover:bg-[#b4da2e] transition">
                             Become a Merchant
                         </button>
-                        <button className="border border-[#C7F033] text-[#C7F033]/95 px-6 py-2 rounded-full hover:bg-[#C7F033] hover:text-black font-bold transition">
+                        <button className="border border-[#C7F033] text-[#C7F033]/90 px-6 py-2 rounded-full hover:bg-[#C7F033] hover:text-black font-bold transition">
                             Earn with ProFast Courier
                         </button>
                     </div>

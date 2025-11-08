@@ -4,6 +4,7 @@ const ServiceCard = ({ service, icon: Icon }) => {
     const { title, description } = service;
     return (
         <article
+            data-aos="zoom-out-up"
             className="card bg-white hover:bg-[#CAEB66] p-6 h-64 rounded-2xl transition-colors duration-300 delay-100"
         >
             <div className="flex flex-col items-center gap-5">

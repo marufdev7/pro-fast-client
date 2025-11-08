@@ -2,7 +2,7 @@ import React from 'react';
 
 const FeatureCard = ({ feature }) => {
     return (
-        <div className="flex flex-col md:flex-row items-center bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden">
+        <div data-aos="zoom-in" className="flex flex-col md:flex-row items-center bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden">
             <div className="w-full md:w-1/3 lg:w-1/4 p-8 flex justify-center">
                 <div className="relative">
                     <img

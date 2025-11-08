@@ -6,7 +6,7 @@ import { router } from './router/router';
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-AOS.init();
+AOS.init({ duration: 1000, delay: 300 });
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
