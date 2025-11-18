@@ -1,20 +1,23 @@
 import React from 'react';
+import { Outlet } from 'react-router';
+import authImg from '../assets/authImage.png';
+import ProFastLogo from '../components/ProFastLogo/ProFastLogo';
 
 const AuthLayout = () => {
     return (
-        <div className="hero bg-base-200 min-h-screen">
-            <div className="hero-content flex-col lg:flex-row-reverse">
-                <img
-                    src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
-                    className="max-w-sm rounded-lg shadow-2xl"
-                />
-                <div>
-                    <h1 className="text-5xl font-bold">Box Office News!</h1>
-                    <p className="py-6">
-                        Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
-                        quasi. In deleniti eaque aut repudiandae et a id nisi.
-                    </p>
-                    <button className="btn btn-primary">Get Started</button>
+        <div className="min-h-screen">
+            <div className="lg:bg-[linear-gradient(to_right,#eaeced_50%,#FAFDF0_50%)] pt-4 pb-4">
+                <ProFastLogo />
+            </div>
+            <div className="flex flex-col items-center  lg:flex-row-reverse">
+                <div className='flex-1 bg-[#FAFDF0]'>
+                    <img
+                        src={authImg}
+                        className=""
+                    />
+                </div>
+                <div className='flex-1'>
+                    <Outlet />
                 </div>
             </div>
         </div>

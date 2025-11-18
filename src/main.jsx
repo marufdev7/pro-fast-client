@@ -10,7 +10,7 @@ AOS.init({ duration: 1000, delay: 300 });
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
-        <div className='font-[Urbanist] pl-12 pr-12 pb-12 pt-7 max-w-[1600px] mx-auto bg-[#eaeced]'>
+        <div className='font-[Urbanist] pl-10 pr-10 pb-10 pt-7 max-w-[1600px] mx-auto bg-[#eaeced]'>
             <RouterProvider router={router} />
         </div>
     </StrictMode>,
