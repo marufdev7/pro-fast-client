@@ -3,8 +3,8 @@ import { useForm } from 'react-hook-form';
 import { FcGoogle } from 'react-icons/fc';
 
 const Login = () => {
-    const { register, handleSubmit } = useForm();
-    
+    const { register, handleSubmit, formState: { errors } } = useForm();
+
     const onSubmit = data => {
         console.log(data);
     };
@@ -23,8 +23,12 @@ const Login = () => {
                                 <input
                                     type="email"
                                     placeholder="Email"
-                                    {...register("email")}
+                                    required
                                     className="w-full px-4 py-3 bg-white border rounded-lg focus:outline-none focus:border-gray-700"
+                                    {...register("email", {
+                                        required: true,
+                                    }
+                                    )}
                                 />
                             </div>
 
@@ -33,13 +37,19 @@ const Login = () => {
                                 <input
                                     type="password"
                                     placeholder="Password"
+                                    className="w-full px-4 py-3 border bg-white rounded-lg focus:outline-none focus:border-gray-700"
                                     {...register("password", {
                                         required: true,
                                         minLength: 6,
 
                                     })}
-                                    className="w-full px-4 py-3 border bg-white rounded-lg focus:outline-none focus:border-gray-700"
                                 />
+                                {
+                                    errors.password?.type === 'required' && <p className='text-red-500'>Password is required</p>
+                                }
+                                {
+                                    errors.password?.type === 'minLength' && <p className='text-red-500'>Password must be 6 characters or longer</p>
+                                }
                             </div>
 
                             <div className="text-left">
