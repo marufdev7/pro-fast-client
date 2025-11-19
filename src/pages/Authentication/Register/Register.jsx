@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { FcGoogle } from 'react-icons/fc';
 import { Link } from 'react-router';
 
-const Login = () => {
+const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = data => {
@@ -15,10 +15,23 @@ const Login = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="flex items-center justify-center">
                     <div className="w-full max-w-md mt-8">
-                        <h1 className="text-5xl font-bold">Welcome Back</h1>
-                        <p className="text-gray-600 font-medium mb-8">Login with ProFast</p>
+                        <h1 className="text-5xl font-bold">Create an Account</h1>
+                        <p className="text-gray-600 font-medium mb-8">Register with ProFast</p>
 
                         <div className="space-y-6">
+                            <div>
+                                <label>Name</label>
+                                <input
+                                    type="text"
+                                    placeholder="Name"
+                                    required
+                                    className="w-full px-4 py-3 bg-white border border-gray-400 rounded-lg focus:outline-none focus:border-gray-700"
+                                    {...register("name", {
+                                        required: true,
+                                    }
+                                    )}
+                                />
+                            </div>
                             <div>
                                 <label>Email</label>
                                 <input
@@ -53,23 +66,17 @@ const Login = () => {
                                 }
                             </div>
 
-                            <div className="text-left">
-                                <a href="#" className="text-zinc-600 hover:text-zinc-800 underline">
-                                    Forget Password?
-                                </a>
-                            </div>
-
                             <button
                                 // onClick={handleLogin}
-                                className="w-full btn bg-[#CAEB66] border border-slate-300 font-semibold hover:bg-[#B8D94E] text-zinc-800 rounded-lg transition-colors"
+                                className="w-full btn bg-[#CAEB66] font-semibold border border-slate-300 hover:bg-[#B8D94E] text-zinc-800 rounded-lg transition-colors"
                             >
-                                Login
+                                Register
                             </button>
 
                             <p className="text-center text-gray-600">
-                                Don't have any account?{' '}
-                                <Link to="/register" className="text-lime-700 hover:text-lime-800">
-                                    Register
+                                Already have an Account?{' '}
+                                <Link to="/login" className="text-lime-700 hover:text-lime-800">
+                                    Login
                                 </Link>
                             </p>
 
@@ -92,4 +99,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Register;
