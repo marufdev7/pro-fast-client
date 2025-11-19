@@ -9,11 +9,12 @@ const AuthLayout = () => {
             <div className="lg:bg-[linear-gradient(to_right,#eaeced_50%,#FAFDF0_50%)] pt-4 pb-4">
                 <ProFastLogo />
             </div>
-            <div className="flex flex-col items-center  lg:flex-row-reverse">
-                <div className='flex-1 bg-[#FAFDF0]'>
+            <div className="flex flex-col items-center lg:flex-row-reverse">
+                <div className='flex-1 bg-[#FAFDF0] lg:min-h-[90vh] flex items-center justify-center'>
                     <img
                         src={authImg}
-                        className=""
+                        alt="Authentication Illustration"
+                        className="w-3/4 lg:w-full"
                     />
                 </div>
                 <div className='flex-1'>
