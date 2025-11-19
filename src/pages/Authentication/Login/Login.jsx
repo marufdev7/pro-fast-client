@@ -2,9 +2,12 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { FcGoogle } from 'react-icons/fc';
 import { Link } from 'react-router';
+import { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const [show, setShow] = useState(false);
 
     const onSubmit = data => {
         console.log(data);
@@ -35,22 +38,34 @@ const Login = () => {
 
                             <div>
                                 <label>Password</label>
-                                <input
-                                    type="password"
-                                    placeholder="Password"
-                                    className="w-full px-4 py-3 border border-gray-400 bg-white rounded-lg focus:outline-none focus:border-gray-700"
-                                    {...register("password", {
-                                        required: true,
-                                        minLength: 6,
 
-                                    })}
-                                />
-                                {
-                                    errors.password?.type === 'required' && <p className='text-red-500'>Password is required</p>
-                                }
-                                {
-                                    errors.password?.type === 'minLength' && <p className='text-red-500'>Password must be 6 characters or longer</p>
-                                }
+                                <div className="relative">
+                                    <input
+                                        type={show ? "text" : "password"}
+                                        placeholder="Password"
+                                        className="w-full px-4 py-3 border border-gray-400 bg-white rounded-lg focus:outline-none focus:border-gray-700"
+                                        {...register("password", {
+                                            required: "Password is required",
+                                            minLength: {
+                                                value: 6,
+                                                message: "Password must be at least 6 characters"
+                                            }
+                                        })}
+                                    />
+
+                                    <span
+                                        onClick={() => setShow(!show)}
+                                        className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-600"
+                                    >
+                                        {show ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
+                                    </span>
+                                </div>
+
+                                {errors.password && (
+                                    <p className="text-red-500 text-sm mt-1">
+                                        {errors.password.message}
+                                    </p>
+                                )}
                             </div>
 
                             <div className="text-left">
