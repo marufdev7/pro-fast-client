@@ -5,7 +5,8 @@ import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import useAuth from '../../../hooks/useAuth';
 import uploadImg from '../../../assets/image-upload-icon.png';
-import SocialLogin from '../../../components/SocialLogin/SocialLogin';
+import GoogleLogin from '../../../components/SocialLogin/GoogleLogin';
+
 
 const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -118,7 +119,7 @@ const Register = () => {
                                 <p className='text-gray-600'>Or</p>
                             </div>
 
-                            <SocialLogin name="Register" />
+                            <GoogleLogin name="Register"/>
                         </div>
                     </div>
                 </div>

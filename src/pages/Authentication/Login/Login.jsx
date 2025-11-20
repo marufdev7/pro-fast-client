@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router';
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import SocialLogin from '../../../components/SocialLogin/SocialLogin';
+import GoogleLogin from '../../../components/SocialLogin/GoogleLogin';
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -92,7 +92,7 @@ const Login = () => {
                                 <p className='text-gray-600'>Or</p>
                             </div>
 
-                            <SocialLogin name="Login" />
+                            <GoogleLogin name="Login" />
                         </div>
                     </div>
                 </div>
