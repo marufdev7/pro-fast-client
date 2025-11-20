@@ -1,11 +1,11 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { FcGoogle } from 'react-icons/fc';
 import { Link } from 'react-router';
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import useAuth from '../../../hooks/useAuth';
 import uploadImg from '../../../assets/image-upload-icon.png';
+import SocialLogin from '../../../components/SocialLogin/SocialLogin';
 
 const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -31,7 +31,7 @@ const Register = () => {
                         <h1 className="text-5xl font-bold">Create an Account</h1>
                         <p className="text-gray-600 font-medium mt-1 mb-5">Register with ProFast</p>
                         <label className='cursor-pointer'>
-                            <input type="file" className='hidden' accept="image/*"/>
+                            <input type="file" className='hidden' accept="image/*" />
                             <img src={uploadImg} alt="Upload" />
                         </label>
 
@@ -118,13 +118,7 @@ const Register = () => {
                                 <p className='text-gray-600'>Or</p>
                             </div>
 
-                            <button
-                                // onClick={handleGoogleLogin}
-                                className="w-full btn bg-gray-100 border border-slate-400 hover:bg-gray-300 font-semibold rounded-lg transition-colors text-zinc-800 flex items-center justify-center gap-2"
-                            >
-                                <FcGoogle size={24} />
-                                Register with google
-                            </button>
+                            <SocialLogin name="Register" />
                         </div>
                     </div>
                 </div>

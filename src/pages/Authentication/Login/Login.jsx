@@ -1,9 +1,9 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { FcGoogle } from 'react-icons/fc';
 import { Link } from 'react-router';
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import SocialLogin from '../../../components/SocialLogin/SocialLogin';
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -92,13 +92,7 @@ const Login = () => {
                                 <p className='text-gray-600'>Or</p>
                             </div>
 
-                            <button
-                                // onClick={handleGoogleLogin}
-                                className="w-full btn bg-gray-100 border border-slate-400 hover:bg-gray-300 font-semibold rounded-lg transition-colors text-zinc-800 flex items-center justify-center gap-2"
-                            >
-                                <FcGoogle size={24} />
-                                Login with google
-                            </button>
+                            <SocialLogin name="Login" />
                         </div>
                     </div>
                 </div>
