@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router';
 import ProFastLogo from '../../../components/ProFastLogo/ProFastLogo';
+import { MdArrowOutward } from 'react-icons/md';
 
 const Navbar = () => {
     const navItems = <>
@@ -27,8 +28,12 @@ const Navbar = () => {
                     {navItems}
                 </ul>
             </div>
-            <div className="navbar-end">
-                <a className="btn">Button</a>
+            <div className="navbar-end space-x-4">
+                <Link to={'/login'} className="btn bg-white hover:bg-gray-100 border hover:border-gray-300 rounded-lg w-24 text-[#606060] hover:text-[#404040]">Login</Link>
+                <div className='flex items-center'>
+                    <Link to={'/register'} className="btn bg-[#CAEB66] text-slate-800 hover:text-black hover:bg-[#B8D94E] rounded-lg w-24">Sign Up</Link>
+                    <MdArrowOutward size={36} className='bg-black text-[#caeb66] rounded-full w p-1 ' />
+                </div>
             </div>
         </div>
     );
