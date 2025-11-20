@@ -28,7 +28,7 @@ const Login = () => {
                                     type="email"
                                     placeholder="Email"
                                     required
-                                    className="w-full px-4 py-3 bg-white border border-gray-400 rounded-lg focus:outline-none focus:border-gray-700"
+                                    className="w-full px-4 py-3 border border-gray-400 rounded-lg focus:outline-none focus:border-gray-700"
                                     {...register("email", {
                                         required: true,
                                     }
@@ -43,7 +43,7 @@ const Login = () => {
                                     <input
                                         type={show ? "text" : "password"}
                                         placeholder="Password"
-                                        className="w-full px-4 py-3 border border-gray-400 bg-white rounded-lg focus:outline-none focus:border-gray-700"
+                                        className="w-full px-4 py-3 border border-gray-400 rounded-lg focus:outline-none focus:border-gray-700"
                                         {...register("password", {
                                             required: "Password is required",
                                             minLength: {
@@ -94,7 +94,7 @@ const Login = () => {
 
                             <button
                                 // onClick={handleGoogleLogin}
-                                className="w-full btn bg-gray-50 border border-slate-400 hover:bg-white font-semibold rounded-lg transition-colors text-zinc-800 flex items-center justify-center gap-2"
+                                className="w-full btn bg-gray-100 border border-slate-400 hover:bg-gray-300 font-semibold rounded-lg transition-colors text-zinc-800 flex items-center justify-center gap-2"
                             >
                                 <FcGoogle size={24} />
                                 Login with google
