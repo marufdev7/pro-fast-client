@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import useAuth from '../../../hooks/useAuth';
+import uploadImg from '../../../assets/image-upload-icon.png';
 
 const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -28,9 +29,13 @@ const Register = () => {
                 <div className="flex items-center justify-center">
                     <div className="w-full max-w-md mt-8">
                         <h1 className="text-5xl font-bold">Create an Account</h1>
-                        <p className="text-gray-600 font-medium mb-8">Register with ProFast</p>
+                        <p className="text-gray-600 font-medium mt-1 mb-5">Register with ProFast</p>
+                        <label className='cursor-pointer'>
+                            <input type="file" className='hidden' accept="image/*"/>
+                            <img src={uploadImg} alt="Upload" />
+                        </label>
 
-                        <div className="space-y-6">
+                        <div className="space-y-6 mt-5">
                             <div>
                                 <label>Name</label>
                                 <input
