@@ -6,6 +6,7 @@ import { MdArrowOutward } from 'react-icons/md';
 const Navbar = () => {
     const navItems = <>
         <li><NavLink to={'/'}>Home</NavLink></li>
+        <li><NavLink to={'/coverage'}>Coverage</NavLink></li>
         <li><NavLink to={'/about'}>About Us</NavLink></li>
     </>
     return (
@@ -21,7 +22,7 @@ const Navbar = () => {
                         {navItems}
                     </ul>
                 </div>
-                <Link to={'/'}><ProFastLogo /></Link>
+                <ProFastLogo />
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
@@ -32,7 +33,7 @@ const Navbar = () => {
                 <Link to={'/login'} className="btn bg-white hover:bg-gray-100 border hover:border-gray-300 rounded-lg w-24 text-[#606060] hover:text-[#404040]">Login</Link>
                 <div className='flex items-center'>
                     <Link to={'/register'} className="btn bg-[#CAEB66] text-slate-800 hover:text-black hover:bg-[#B8D94E] rounded-lg w-24">Sign Up</Link>
-                    <MdArrowOutward size={36} className='bg-black text-[#caeb66] rounded-full w p-1 ' />
+                    <MdArrowOutward size={36} className='bg-black text-[#caeb66] rounded-full w p-1' />
                 </div>
             </div>
         </div>
