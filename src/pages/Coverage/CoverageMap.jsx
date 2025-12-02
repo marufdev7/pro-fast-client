@@ -27,7 +27,7 @@ function FlyToDistrict({ warehouses, searchText }) {
 
         if (!match) return;
 
-        map.flyTo([match.latitude, match.longitude], 14, { duration: 1 });
+        map.flyTo([match.latitude, match.longitude], 14, { duration: 1.5 });
     }, [searchText, warehouses, map]);
 
     return null;
