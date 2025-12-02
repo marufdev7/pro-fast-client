@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 
-const SendParcel = ({ currentUserName = "", warehouses = [], regions = [], }) => {
-    const { register, handleSubmit, watch, formState: { errors }, reset,} = useForm({
+const SendParcel = ({ currentUserName = "", }) => {
+    const { register, handleSubmit, watch, formState: { errors }, reset, } = useForm({
         defaultValues: {
             type: "document",
             title: "",
@@ -24,10 +24,25 @@ const SendParcel = ({ currentUserName = "", warehouses = [], regions = [], }) =>
         },
     });
 
+    const regionWarehouses = {
+        Dhaka: ["Uttara Warehouse", "Mirpur Warehouse", "Banani Hub", "Gulshan Depot"],
+        Chattogram: ["Agrabad Hub", "Pahartali Warehouse", "Chattogram Central"],
+        Sylhet: ["Sylhet Point", "Zindabazar Depot"],
+        Rajshahi: ["Rajshahi City Hub", "Shaheb Bazar Warehouse"],
+        Khulna: ["Khulna Central", "Boyra Warehouse"],
+        Barishal: ["Barishal Sadar Hub", "Port Road Warehouse"],
+        Rangpur: ["Rangpur City Hub", "Keranipara Warehouse"],
+        Mymensingh: ["Mymensingh Town Hub", "Ganginapar Warehouse"],
+    };
+
+
+
     const [calculatedCost, setCalculatedCost] = useState(null);
     const [showConfirmBox, setShowConfirmBox] = useState(false);
 
     const parcelType = watch("type");
+    const senderRegion = watch("senderRegion");
+    const receiverRegion = watch("receiverRegion");
 
     const calculateCost = (values) => {
         const type = values.type;
@@ -161,23 +176,21 @@ const SendParcel = ({ currentUserName = "", warehouses = [], regions = [], }) =>
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm text-gray-600 mb-1">
-                                        Sender Pickup Warehouse
-                                    </label>
+                                    <label className="block text-sm text-gray-600 mb-1">Your Region</label>
                                     <select
-                                        {...register("senderWarehouse", { required: "Select pickup warehouse" })}
+                                        {...register("senderRegion", { required: "Select region" })}
                                         className="w-full border rounded-md px-3 py-2 text-sm"
                                     >
-                                        <option value="">Select Warehouse</option>
-                                        {warehouses.map((wh) => (
-                                            <option key={wh} value={wh}>
-                                                {wh}
+                                        <option value="">Select your region</option>
+                                        {Object.keys(regionWarehouses).map((region) => (
+                                            <option key={region} value={region}>
+                                                {region}
                                             </option>
                                         ))}
                                     </select>
-                                    {errors.senderWarehouse && (
+                                    {errors.senderRegion && (
                                         <p className="text-red-500 text-xs mt-1">
-                                            {errors.senderWarehouse.message}
+                                            {errors.senderRegion.message}
                                         </p>
                                     )}
                                 </div>
@@ -213,21 +226,25 @@ const SendParcel = ({ currentUserName = "", warehouses = [], regions = [], }) =>
                                 </div>
 
                                 <div className="md:col-span-2">
-                                    <label className="block text-sm text-gray-600 mb-1">Your Region</label>
+                                    <label className="block text-sm text-gray-600 mb-1">
+                                        Sender Pickup Warehouse
+                                    </label>
                                     <select
-                                        {...register("senderRegion", { required: "Select region" })}
+                                        {...register("senderWarehouse", { required: "Select pickup warehouse" })}
                                         className="w-full border rounded-md px-3 py-2 text-sm"
                                     >
-                                        <option value="">Select your region</option>
-                                        {regions.map((region) => (
-                                            <option key={region} value={region}>
-                                                {region}
-                                            </option>
-                                        ))}
+                                        <option value="">Select Warehouse</option>
+                                        {senderRegion &&
+                                            regionWarehouses[senderRegion]?.map((wh) => (
+                                                <option key={wh} value={wh}>
+                                                    {wh}
+                                                </option>
+                                            ))}
+
                                     </select>
-                                    {errors.senderRegion && (
+                                    {errors.senderWarehouse && (
                                         <p className="text-red-500 text-xs mt-1">
-                                            {errors.senderRegion.message}
+                                            {errors.senderWarehouse.message}
                                         </p>
                                     )}
                                 </div>
@@ -274,22 +291,22 @@ const SendParcel = ({ currentUserName = "", warehouses = [], regions = [], }) =>
 
                                 <div>
                                     <label className="block text-sm text-gray-600 mb-1">
-                                        Receiver Delivery Warehouse
+                                        Receiver Region
                                     </label>
                                     <select
-                                        {...register("receiverWarehouse", { required: "Select delivery warehouse" })}
+                                        {...register("receiverRegion", { required: "Select region" })}
                                         className="w-full border rounded-md px-3 py-2 text-sm"
                                     >
-                                        <option value="">Select Warehouse</option>
-                                        {warehouses.map((wh) => (
-                                            <option key={wh} value={wh}>
-                                                {wh}
+                                        <option value="">Select your region</option>
+                                        {Object.keys(regionWarehouses).map((region) => (
+                                            <option key={region} value={region}>
+                                                {region}
                                             </option>
                                         ))}
                                     </select>
-                                    {errors.receiverWarehouse && (
+                                    {errors.receiverRegion && (
                                         <p className="text-red-500 text-xs mt-1">
-                                            {errors.receiverWarehouse.message}
+                                            {errors.receiverRegion.message}
                                         </p>
                                     )}
                                 </div>
@@ -328,22 +345,23 @@ const SendParcel = ({ currentUserName = "", warehouses = [], regions = [], }) =>
 
                                 <div className="md:col-span-2">
                                     <label className="block text-sm text-gray-600 mb-1">
-                                        Receiver Region
+                                        Receiver Delivery Warehouse
                                     </label>
                                     <select
-                                        {...register("receiverRegion", { required: "Select region" })}
+                                        {...register("receiverWarehouse", { required: "Select delivery warehouse" })}
                                         className="w-full border rounded-md px-3 py-2 text-sm"
                                     >
-                                        <option value="">Select your region</option>
-                                        {regions.map((region) => (
-                                            <option key={region} value={region}>
-                                                {region}
-                                            </option>
-                                        ))}
+                                        <option value="">Select Warehouse</option>
+                                        {receiverRegion &&
+                                            regionWarehouses[receiverRegion]?.map((wh) => (
+                                                <option key={wh} value={wh}>
+                                                    {wh}
+                                                </option>
+                                            ))}
                                     </select>
-                                    {errors.receiverRegion && (
+                                    {errors.receiverWarehouse && (
                                         <p className="text-red-500 text-xs mt-1">
-                                            {errors.receiverRegion.message}
+                                            {errors.receiverWarehouse.message}
                                         </p>
                                     )}
                                 </div>
