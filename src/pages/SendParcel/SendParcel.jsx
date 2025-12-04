@@ -25,25 +25,23 @@ const SendParcel = ({ currentUserName = "", }) => {
         },
     });
 
-    const regionWarehouses = {
-        Dhaka: ["Uttara Warehouse", "Mirpur Warehouse", "Banani Hub", "Gulshan Depot"],
-        Chattogram: ["Agrabad Hub", "Pahartali Warehouse", "Chattogram Central"],
-        Sylhet: ["Sylhet Point", "Zindabazar Depot"],
-        Rajshahi: ["Rajshahi City Hub", "Shaheb Bazar Warehouse"],
-        Khulna: ["Khulna Central", "Boyra Warehouse"],
-        Barishal: ["Barishal Sadar Hub", "Port Road Warehouse"],
-        Rangpur: ["Rangpur City Hub", "Keranipara Warehouse"],
-        Mymensingh: ["Mymensingh Town Hub", "Ganginapar Warehouse"],
-    };
-
-    const warehouses = useLoaderData();
-
     const [calculatedCost, setCalculatedCost] = useState(null);
     const [showConfirmBox, setShowConfirmBox] = useState(false);
+    const warehouses = useLoaderData();
+
+    // Derive unique regions and districts from warehouses data
+    const uniqueRegions = [...new Set(warehouses.map((w) => w.region))];
+    const getDistrictsByRegion = (region) => warehouses
+        .filter((w) => w.region === region)
+        .map((w) => w.district);
 
     const parcelType = watch("type");
     const senderRegion = watch("senderRegion");
     const receiverRegion = watch("receiverRegion");
+
+    const senderDistricts = getDistrictsByRegion(senderRegion);
+    const receiverDistricts = getDistrictsByRegion(receiverRegion);
+
 
     const calculateCost = (values) => {
         const type = values.type;
@@ -69,7 +67,7 @@ const SendParcel = ({ currentUserName = "", }) => {
             const payload = {
                 ...getValues(),
                 cost: calculatedCost,
-                creation_date: new Date().toISOString(),
+                creation_date: new Date().toLocaleString(),
             };
 
             // simulate async submission (replace with real API / Firebase call)
@@ -190,10 +188,8 @@ const SendParcel = ({ currentUserName = "", }) => {
                                         className="w-full border rounded-md px-3 py-2 text-sm"
                                     >
                                         <option value="">Select your region</option>
-                                        {Object.keys(regionWarehouses).map((region) => (
-                                            <option key={region} value={region}>
-                                                {region}
-                                            </option>
+                                        {uniqueRegions.map((region) => (
+                                            <option key={region} value={region}>{region}</option>
                                         ))}
                                     </select>
                                     {errors.senderRegion && (
@@ -204,15 +200,22 @@ const SendParcel = ({ currentUserName = "", }) => {
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm text-gray-600 mb-1">Address</label>
-                                    <input
-                                        {...register("senderAddress", { required: "Address is required" })}
-                                        placeholder="Address"
+                                    <label className="block text-sm text-gray-600 mb-1">
+                                        Sender Pickup Warehouse
+                                    </label>
+                                    <select
+                                        {...register("senderWarehouse", { required: "Select pickup warehouse" })}
                                         className="w-full border rounded-md px-3 py-2 text-sm"
-                                    />
-                                    {errors.senderAddress && (
+                                    >
+                                        <option value="">Select Warehouse</option>
+                                        {senderRegion &&
+                                            senderDistricts.map((district) => (
+                                                <option key={district} value={district}>{district}</option>
+                                            ))}
+                                    </select>
+                                    {errors.senderWarehouse && (
                                         <p className="text-red-500 text-xs mt-1">
-                                            {errors.senderAddress.message}
+                                            {errors.senderWarehouse.message}
                                         </p>
                                     )}
                                 </div>
@@ -234,25 +237,15 @@ const SendParcel = ({ currentUserName = "", }) => {
                                 </div>
 
                                 <div className="md:col-span-2">
-                                    <label className="block text-sm text-gray-600 mb-1">
-                                        Sender Pickup Warehouse
-                                    </label>
-                                    <select
-                                        {...register("senderWarehouse", { required: "Select pickup warehouse" })}
+                                    <label className="block text-sm text-gray-600 mb-1">Address</label>
+                                    <input
+                                        {...register("senderAddress", { required: "Address is required" })}
+                                        placeholder="Address"
                                         className="w-full border rounded-md px-3 py-2 text-sm"
-                                    >
-                                        <option value="">Select Warehouse</option>
-                                        {senderRegion &&
-                                            regionWarehouses[senderRegion]?.map((wh) => (
-                                                <option key={wh} value={wh}>
-                                                    {wh}
-                                                </option>
-                                            ))}
-
-                                    </select>
-                                    {errors.senderWarehouse && (
+                                    />
+                                    {errors.senderAddress && (
                                         <p className="text-red-500 text-xs mt-1">
-                                            {errors.senderWarehouse.message}
+                                            {errors.senderAddress.message}
                                         </p>
                                     )}
                                 </div>
@@ -306,10 +299,8 @@ const SendParcel = ({ currentUserName = "", }) => {
                                         className="w-full border rounded-md px-3 py-2 text-sm"
                                     >
                                         <option value="">Select your region</option>
-                                        {Object.keys(regionWarehouses).map((region) => (
-                                            <option key={region} value={region}>
-                                                {region}
-                                            </option>
+                                        {uniqueRegions.map((region) => (
+                                            <option key={region} value={region}>{region}</option>
                                         ))}
                                     </select>
                                     {errors.receiverRegion && (
@@ -321,16 +312,21 @@ const SendParcel = ({ currentUserName = "", }) => {
 
                                 <div>
                                     <label className="block text-sm text-gray-600 mb-1">
-                                        Receiver Address
+                                        Receiver Delivery Warehouse
                                     </label>
-                                    <input
-                                        {...register("receiverAddress", { required: "Address is required" })}
-                                        placeholder="Address"
+                                    <select
+                                        {...register("receiverWarehouse", { required: "Select delivery warehouse" })}
                                         className="w-full border rounded-md px-3 py-2 text-sm"
-                                    />
-                                    {errors.receiverAddress && (
+                                    >
+                                        <option value="">Select Warehouse</option>
+                                        {receiverRegion &&
+                                            receiverDistricts.map((district) => (
+                                                <option key={district} value={district}>{district}</option>
+                                            ))}
+                                    </select>
+                                    {errors.receiverWarehouse && (
                                         <p className="text-red-500 text-xs mt-1">
-                                            {errors.receiverAddress.message}
+                                            {errors.receiverWarehouse.message}
                                         </p>
                                     )}
                                 </div>
@@ -353,23 +349,16 @@ const SendParcel = ({ currentUserName = "", }) => {
 
                                 <div className="md:col-span-2">
                                     <label className="block text-sm text-gray-600 mb-1">
-                                        Receiver Delivery Warehouse
+                                        Receiver Address
                                     </label>
-                                    <select
-                                        {...register("receiverWarehouse", { required: "Select delivery warehouse" })}
+                                    <input
+                                        {...register("receiverAddress", { required: "Address is required" })}
+                                        placeholder="Address"
                                         className="w-full border rounded-md px-3 py-2 text-sm"
-                                    >
-                                        <option value="">Select Warehouse</option>
-                                        {receiverRegion &&
-                                            regionWarehouses[receiverRegion]?.map((wh) => (
-                                                <option key={wh} value={wh}>
-                                                    {wh}
-                                                </option>
-                                            ))}
-                                    </select>
-                                    {errors.receiverWarehouse && (
+                                    />
+                                    {errors.receiverAddress && (
                                         <p className="text-red-500 text-xs mt-1">
-                                            {errors.receiverWarehouse.message}
+                                            {errors.receiverAddress.message}
                                         </p>
                                     )}
                                 </div>
