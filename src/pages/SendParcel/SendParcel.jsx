@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 
 const SendParcel = ({ currentUserName = "", }) => {
-    const { register, handleSubmit, watch, formState: { errors }, reset, } = useForm({
+    const { register, handleSubmit, watch, getValues, formState: { errors }, reset, } = useForm({
         defaultValues: {
             type: "document",
             title: "",
@@ -35,7 +35,7 @@ const SendParcel = ({ currentUserName = "", }) => {
         Mymensingh: ["Mymensingh Town Hub", "Ganginapar Warehouse"],
     };
 
-
+    const warehouses = useLoaderData();
 
     const [calculatedCost, setCalculatedCost] = useState(null);
     const [showConfirmBox, setShowConfirmBox] = useState(false);
@@ -63,19 +63,26 @@ const SendParcel = ({ currentUserName = "", }) => {
     };
 
     const handleConfirm = async () => {
-        const payload = {
-            ...watch(),
-            cost: calculatedCost,
-            creation_date: new Date().toISOString(),
-        };
+        const toastId = toast.loading("Submitting parcel...", { position: "top-center" });
+        try {
+            const payload = {
+                ...getValues(),
+                cost: calculatedCost,
+                creation_date: new Date().toISOString(),
+            };
 
-        // TODO: Replace with Firebase / API save logic
-        console.log("Saving parcel:", payload);
+            // simulate async submission (replace with real API / Firebase call)
+            console.log("Submitting parcel:", payload);
+            await new Promise((resolve) => setTimeout(resolve, 800));
 
-        toast.success("Parcel saved successfully", { position: "top-center" });
-        setShowConfirmBox(false);
-        setCalculatedCost(null);
-        reset();
+            toast.success("Parcel saved successfully", { id: toastId, position: "top-center" });
+            setShowConfirmBox(false);
+            setCalculatedCost(null);
+            reset();
+        } catch (err) {
+            console.error("Failed to submit parcel:", err);
+            toast.error("Failed to save parcel", { id: toastId, position: "top-center" });
+        }
     };
 
     return (
