@@ -39,16 +39,38 @@ const SendParcel = ({ currentUserName = "", }) => {
     const senderRegion = watch("senderRegion");
     const receiverRegion = watch("receiverRegion");
 
+    // Get regions and districts based on selected regions
     const senderDistricts = getDistrictsByRegion(senderRegion);
     const receiverDistricts = getDistrictsByRegion(receiverRegion);
 
+    const getDeliveryScope = (senderDistrict, receiverDistrict) => {
+        return senderDistrict === receiverDistrict ? "within" : "outside";
+    };
 
     const calculateCost = (values) => {
-        const type = values.type;
-        const base = type === "document" ? 50 : 100;
-        const weight = parseFloat(values.weight) || 0;
-        const weightCost = type === "non-document" ? Math.max(0, weight) * 20 : 0;
-        return Math.round(base + weightCost);
+        const { type, weight, senderWarehouse, receiverWarehouse } = values;
+        const w = parseFloat(weight) || 0;
+
+        // derive scope
+        const deliveryScope = getDeliveryScope(senderWarehouse, receiverWarehouse);
+
+        // Document pricing
+        if (type === "document") {
+            return deliveryScope === "within" ? 60 : 80;
+        }
+
+        // Non-document up to 3kg
+        if (type === "non-document") {
+            if (w <= 3) {
+                return deliveryScope === "within" ? 110 : 150;
+            } else {
+                // Non-document above 3kg
+                // 40 per kg, plus flat 40 extra if outside district
+                const extra = deliveryScope === "outside" ? 40 : 0;
+                return (w * 40) + extra;
+            }
+        }
+        return 0;
     };
 
     const onSubmit = (values) => {
@@ -227,6 +249,7 @@ const SendParcel = ({ currentUserName = "", }) => {
                                     <input
                                         {...register("senderContact", { required: "Contact is required" })}
                                         placeholder="Sender Contact No"
+                                        type="number"
                                         className="w-full border rounded-md px-3 py-2 text-sm"
                                     />
                                     {errors.senderContact && (
@@ -338,6 +361,7 @@ const SendParcel = ({ currentUserName = "", }) => {
                                     <input
                                         {...register("receiverContact", { required: "Contact is required" })}
                                         placeholder="Receiver Contact No"
+                                        type="number"
                                         className="w-full border rounded-md px-3 py-2 text-sm"
                                     />
                                     {errors.receiverContact && (
