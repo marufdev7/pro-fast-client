@@ -1,16 +1,18 @@
 
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import toast, { Toaster } from "react-hot-toast";
+import Swal from "sweetalert2";
 import { useLoaderData } from "react-router";
+import useAuth from "../../hooks/useAuth";
 
-const SendParcel = ({ currentUserName = "", }) => {
+const SendParcel = () => {
+    const { user } = useAuth();
     const { register, handleSubmit, watch, getValues, formState: { errors }, reset, } = useForm({
         defaultValues: {
             type: "document",
             title: "",
             weight: "",
-            senderName: currentUserName,
+            senderName: user?.displayName || "",
             senderContact: "",
             senderWarehouse: "",
             senderAddress: "",
@@ -47,69 +49,122 @@ const SendParcel = ({ currentUserName = "", }) => {
         return senderDistrict === receiverDistrict ? "within" : "outside";
     };
 
+    const generateTrackingId = () => {
+        const now = new Date();
+        const datePart = now.toISOString().slice(0, 10).replace(/-/g, ""); // YYYYMMDD
+        const timePart = now.toTimeString().slice(0, 8).replace(/:/g, ""); // HHMMSS
+        const randomPart = Math.random().toString(36).substring(2, 6).toUpperCase(); // 4 chars
+        return `PCL-${datePart}-${timePart}-${randomPart}`;
+    };
+
     const calculateCost = (values) => {
         const { type, weight, senderWarehouse, receiverWarehouse } = values;
         const w = parseFloat(weight) || 0;
-
-        // derive scope
+        // Delivery Scope
         const deliveryScope = getDeliveryScope(senderWarehouse, receiverWarehouse);
 
-        // Document pricing
-        if (type === "document") {
-            return deliveryScope === "within" ? 60 : 80;
-        }
+        let baseCost = 0;
+        let extraCost = 0;
+        let total = 0;
 
-        // Non-document up to 3kg
-        if (type === "non-document") {
+        if (type === "document") {
+            baseCost = deliveryScope === "within" ? 60 : 80;
+            total = baseCost;
+        } else if (type === "non-document") {
             if (w <= 3) {
-                return deliveryScope === "within" ? 110 : 150;
+                baseCost = deliveryScope === "within" ? 110 : 150;
+                total = baseCost;
             } else {
-                // Non-document above 3kg
-                // 40 per kg, plus flat 40 extra if outside district
-                const extra = deliveryScope === "outside" ? 40 : 0;
-                return (w * 40) + extra;
+                baseCost = w * 40;
+                extraCost = deliveryScope === "outside" ? 40 : 0;
+                total = baseCost + extraCost;
             }
         }
-        return 0;
+
+        return { type, weight: w, deliveryScope, baseCost, extraCost, total };
     };
 
     const onSubmit = (values) => {
-        const cost = calculateCost(values);
-        setCalculatedCost(cost);
-        toast(`Delivery Cost: ${cost} BDT`, {
-            icon: "📦",
-            position: "top-center",
+        const { type, weight, deliveryScope, baseCost, extraCost, total } = calculateCost(values);
+
+        Swal.fire({
+            title: "📦 Delivery Cost Breakdown",
+            html: `
+      <table style="width:100%; text-align:left; font-size:14px; color:#374151;">
+        <tr><td><strong>Parcel Type:</strong></td><td>${type}</td></tr>
+        <tr><td><strong>Delivery Zone:</strong></td><td>${deliveryScope === "within" ? "Within District" : "Outside District"}</td></tr>
+        <tr><td><strong>Weight:</strong></td><td>${weight} kg</td></tr>
+        <tr><td><strong>Base Cost:</strong></td><td>৳${baseCost}</td></tr>
+        <tr><td><strong>Extra Cost:</strong></td><td>${extraCost ? "৳" + extraCost : "—"}</td></tr>
+      </table>
+      <hr />
+      <p style="font-size:18px; font-weight:bold; color:#059669;">💰 Total: ৳${total}</p>
+    `,
+            icon: "info",
+            showCancelButton: true,
+            confirmButtonText: "💳 Proceed to Payment",
+            cancelButtonText: "✏️ Edit Again",
+            reverseButtons: true,
+            focusConfirm: false,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                handleConfirm(values, total);
+            } else {
+                // console.log("User chose to edit again:", values);
+            }
         });
-        setShowConfirmBox(true);
     };
 
-    const handleConfirm = async () => {
-        const toastId = toast.loading("Submitting parcel...", { position: "top-center" });
+    const handleConfirm = async (values, total) => {
+        Swal.fire({
+            title: "Submitting parcel...",
+            allowOutsideClick: false,
+            showConfirmButton: false,
+            didOpen: () => {
+                Swal.showLoading();
+            },
+        });
+
         try {
             const payload = {
-                ...getValues(),
-                cost: calculatedCost,
+                ...values,
+                cost: total,
+                created_by: user?.email || "guest",
+                payment_status: "pending",
+                parcel_status: "pending",
                 creation_date: new Date().toLocaleString(),
+                tracking_id: generateTrackingId(),
             };
 
-            // simulate async submission (replace with real API / Firebase call)
             console.log("Submitting parcel:", payload);
-            await new Promise((resolve) => setTimeout(resolve, 800));
 
-            toast.success("Parcel saved successfully", { id: toastId, position: "top-center" });
+            // simulate async submission (replace with real API / Firebase call)
+            await new Promise((resolve) => setTimeout(resolve, 1200));
+
+            Swal.fire({
+                title: "Success!",
+                text: "Parcel saved successfully",
+                icon: "success",
+                confirmButtonText: "OK",
+            });
+
             setShowConfirmBox(false);
             setCalculatedCost(null);
             reset();
+
         } catch (err) {
             console.error("Failed to submit parcel:", err);
-            toast.error("Failed to save parcel", { id: toastId, position: "top-center" });
+            Swal.fire({
+                title: "Error",
+                text: "Failed to save parcel",
+                icon: "error",
+                confirmButtonText: "Try Again",
+            });
         }
     };
 
     return (
         <div className="pt-8 pb-8 text-xl">
-            <Toaster />
-
             <div className="bg-white rounded-2xl p-8 shadow-sm">
                 {/* Title */}
                 <div className="mb-6">
