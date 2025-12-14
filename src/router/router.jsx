@@ -7,6 +7,7 @@ import Register from "../pages/Authentication/Register/Register";
 import Coverage from "../pages/Coverage/Coverage";
 import PrivateRoute from "../routes/PrivateRoute";
 import SendParcel from "../pages/SendParcel/SendParcel";
+import DashboardLayout from "../layout/dashboardLayout";
 
 export const router = createBrowserRouter([
     {
@@ -24,7 +25,6 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'send-parcel',
-                // Component: () => <PrivateRoute><SendParcel /></PrivateRoute>
                 element: <PrivateRoute><SendParcel /></PrivateRoute>,
                 loader: () => fetch('/warehouses.json')
             }
@@ -43,5 +43,9 @@ export const router = createBrowserRouter([
                 Component: Register
             }
         ]
+    },
+    {
+        path: '/dashboard',
+        element: <PrivateRoute> <DashboardLayout /> </PrivateRoute>,
     }
 ]);
