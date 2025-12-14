@@ -6,11 +6,7 @@ const axiosSecure = axios.create({
 });
 
 const useAxiosSecure = () => {
-    return (
-        <div>
-            
-        </div>
-    );
+    return axiosSecure;
 };
 
 export default useAxiosSecure;

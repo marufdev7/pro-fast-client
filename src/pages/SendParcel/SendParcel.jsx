@@ -7,7 +7,8 @@ import useAuth from "../../hooks/useAuth";
 
 const SendParcel = () => {
     const { user } = useAuth();
-    const { register, handleSubmit, watch, getValues, formState: { errors }, reset, } = useForm({
+    const warehouses = useLoaderData();
+    const { register, handleSubmit, watch, formState: { errors }, reset, } = useForm({
         defaultValues: {
             type: "document",
             title: "",
@@ -26,10 +27,6 @@ const SendParcel = () => {
             deliveryInstruction: "",
         },
     });
-
-    const [calculatedCost, setCalculatedCost] = useState(null);
-    const [showConfirmBox, setShowConfirmBox] = useState(false);
-    const warehouses = useLoaderData();
 
     // Derive unique regions and districts from warehouses data
     const uniqueRegions = [...new Set(warehouses.map((w) => w.region))];
@@ -150,8 +147,6 @@ const SendParcel = () => {
                 confirmButtonText: "OK",
             });
 
-            setShowConfirmBox(false);
-            setCalculatedCost(null);
             reset();
 
         } catch (err) {
@@ -474,36 +469,6 @@ const SendParcel = () => {
                         </button>
                     </div>
                 </form>
-
-                {/* Confirm box */}
-                {showConfirmBox && (
-                    <div className="mt-6 p-4 border rounded-md bg-gray-50">
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <p className="text-sm text-gray-700">
-                                    Delivery Cost: <span className="font-semibold">{calculatedCost} BDT</span>
-                                </p>
-                                <p className="text-xs text-gray-500">
-                                    Please confirm to save the booking.
-                                </p>
-                            </div>
-                            <div className="flex items-center gap-3">
-                                <button
-                                    onClick={() => setShowConfirmBox(false)}
-                                    className="px-4 py-2 border rounded-md text-sm"
-                                >
-                                    Cancel
-                                </button>
-                                <button
-                                    onClick={handleConfirm}
-                                    className="px-4 py-2 bg-emerald-700 text-white rounded-md text-sm"
-                                >
-                                    Confirm
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                )}
             </div>
         </div>
     );
