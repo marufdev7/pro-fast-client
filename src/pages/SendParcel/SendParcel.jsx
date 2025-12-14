@@ -141,6 +141,8 @@ const SendParcel = () => {
             // simulate async submission (replace with real API / Firebase call)
             await new Promise((resolve) => setTimeout(resolve, 1200));
 
+            // save data to the server
+
             Swal.fire({
                 title: "Success!",
                 text: "Parcel saved successfully",
