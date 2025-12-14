@@ -1,13 +1,14 @@
-
-import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { useLoaderData } from "react-router";
 import useAuth from "../../hooks/useAuth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const SendParcel = () => {
     const { user } = useAuth();
+    const axiosSecure = useAxiosSecure();
     const warehouses = useLoaderData();
+
     const { register, handleSubmit, watch, formState: { errors }, reset, } = useForm({
         defaultValues: {
             type: "document",
@@ -123,7 +124,7 @@ const SendParcel = () => {
         });
 
         try {
-            const payload = {
+            const parcelData = {
                 ...values,
                 cost: total,
                 created_by: user?.email || "guest",
@@ -133,21 +134,23 @@ const SendParcel = () => {
                 tracking_id: generateTrackingId(),
             };
 
-            console.log("Submitting parcel:", payload);
-
-            // simulate async submission (replace with real API / Firebase call)
-            await new Promise((resolve) => setTimeout(resolve, 1200));
+            // console.log("Submitting parcel:", parcelData); 
 
             // save data to the server
-
-            Swal.fire({
-                title: "Success!",
-                text: "Parcel saved successfully",
-                icon: "success",
-                confirmButtonText: "OK",
-            });
-
-            reset();
+            axiosSecure.post('/parcels', parcelData)
+                .then(res => {
+                    console.log(res.data);
+                    if (res.data.insertedId) {
+                        //TODO: redirect to payment page
+                        Swal.fire({
+                            title: "Success!",
+                            text: `Parcel saved successfully. Your Tracking ID: ${parcelData.tracking_id}`,
+                            icon: "success",
+                            confirmButtonText: "OK",
+                        });
+                        reset();
+                    }
+                });
 
         } catch (err) {
             console.error("Failed to submit parcel:", err);
