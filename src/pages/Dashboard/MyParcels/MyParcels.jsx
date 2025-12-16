@@ -3,13 +3,14 @@ import React, { useMemo } from 'react';
 import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { FaEye, FaTrash, FaMoneyBillWave } from "react-icons/fa";
+import Swal from 'sweetalert2';
 
 const MyParcels = () => {
 
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
 
-    const { data: parcels = [] } = useQuery({
+    const { data: parcels = [], refetch } = useQuery({
         queryKey: ['my-parcels', user?.email],
         queryFn: async () => {
             const res = await axiosSecure.get(`/parcels?email=${user?.email}`);
@@ -47,9 +48,43 @@ const MyParcels = () => {
         // TODO: trigger payment flow
     };
 
-    const handleDelete = (parcel) => {
-        console.log("Delete parcel:", parcel);
-        // TODO: call API to delete parcel
+    const handleDelete = async (id) => {
+        console.log("Delete parcel:", id);
+        const result = await Swal.fire({
+            title: "Delete parcel?",
+            text: "This action cannot be undone.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#dc2626",
+            cancelButtonColor: "#64748b",
+            confirmButtonText: "Yes, delete",
+        });
+
+        if (!result.isConfirmed) return;
+
+        try {
+            axiosSecure.delete(`/parcels/${id}`)
+                .then(res => {
+                    console.log(res.data);
+                    if (res.data.deletedCount) {
+                        Swal.fire({
+                            title: "Deleted",
+                            text: "Parcel has been removed successfully.",
+                            icon: "success",
+                            timer: 1500,
+                            showConfirmButton: false,
+                        });
+                        refetch();
+                    }
+                })
+
+        } catch (error) {
+            Swal.fire({
+                title: "Failed",
+                text: "Unable to delete parcel. Try again.",
+                icon: "error",
+            });
+        }
     };
 
 
