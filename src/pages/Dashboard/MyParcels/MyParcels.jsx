@@ -60,9 +60,10 @@ const MyParcels = () => {
                     <tr>
                         <th></th>
                         <th>Type</th>
-                        <th>Created At</th>
+                        <th>Name</th>
                         <th>Cost</th>
                         <th>Payment Status</th>
+                        <th>Created At</th>
                         <th className="text-center">Actions</th>
                     </tr>
                 </thead>
@@ -80,9 +81,10 @@ const MyParcels = () => {
                                 </span>
                             </td>
 
-                            <td className="text-sm text-gray-600">
-                                {parcel.creation_date}
+                            <td className="font-semibold">
+                                {parcel.title}
                             </td>
+
 
                             <td className="font-semibold">৳ {parcel.cost}</td>
 
@@ -90,6 +92,10 @@ const MyParcels = () => {
                                 <span className={`badge ${paymentBadge(parcel.payment_status)}`}>
                                     {parcel.payment_status}
                                 </span>
+                            </td>
+
+                            <td className="text-sm text-gray-600">
+                                {parcel.creation_date}
                             </td>
 
                             <td>
