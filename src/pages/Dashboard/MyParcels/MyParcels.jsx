@@ -4,11 +4,13 @@ import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { FaEye, FaTrash, FaMoneyBillWave } from "react-icons/fa";
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router';
 
 const MyParcels = () => {
 
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
+    const navigate = useNavigate();
 
     const { data: parcels = [], refetch } = useQuery({
         queryKey: ['my-parcels', user?.email],
@@ -43,9 +45,9 @@ const MyParcels = () => {
         // TODO: open modal or navigate to detail page
     };
 
-    const handlePay = (parcel) => {
-        console.log("Pay parcel:", parcel);
-        // TODO: trigger payment flow
+    const handlePay = (id) => {
+        console.log("Proceed to payment", id);
+        navigate(`/dashboard/payment/${id}`);
     };
 
     const handleDelete = async (id) => {
@@ -144,7 +146,7 @@ const MyParcels = () => {
 
                                     {parcel.payment_status === "pending" && (
                                         <button
-                                            onClick={() => handlePay(parcel)}
+                                            onClick={() => handlePay(parcel._id)}
                                             className="btn btn-xs text-green-600/90 hover:text-green-600 btn-outline"
                                         >
                                             <FaMoneyBillWave /> Pay
