@@ -19,7 +19,7 @@ const dashboardLayout = () => {
                     <div className="px-4 text-2xl font-semibold">Dashboard</div>
                 </nav>
                 {/* Page content here */}
-                <div className="p-4">
+                <div className="p-4 bg-gray-50 min-h-screen">
                     <Outlet />
                 </div>
             </div>
