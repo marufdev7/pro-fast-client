@@ -1,16 +1,28 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import GoogleLogin from '../../../components/SocialLogin/GoogleLogin';
+import useAuth from '../../../hooks/useAuth';
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const { signIn } = useAuth();
     const [show, setShow] = useState(false);
+    const location = useLocation();
+    const navigate = useNavigate()
+
+    const from = location.state?.from || "/";
+
 
     const onSubmit = data => {
-        console.log(data);
+        signIn(data.email, data.password)
+            .then(result => {
+                console.log("Login Successful.");
+                navigate(from);
+            })
+            .catch(err => console.log(err));
     };
 
     return (
@@ -75,7 +87,6 @@ const Login = () => {
                             </div>
 
                             <button
-                                // onClick={handleLogin}
                                 className="w-full btn bg-[#CAEB66] border border-slate-300 font-semibold hover:bg-[#B8D94E] text-zinc-800 rounded-lg transition-colors"
                             >
                                 Login
@@ -83,7 +94,10 @@ const Login = () => {
 
                             <p className="text-center text-gray-600">
                                 Don't have any account?{' '}
-                                <Link to="/register" className="text-lime-700 hover:text-lime-800">
+                                <Link to="/register"
+                                    className="text-lime-700 hover:text-lime-800"
+                                    state={{ from: location.state?.from }}
+                                >
                                     Register
                                 </Link>
                             </p>

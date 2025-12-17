@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import useAuth from '../../../hooks/useAuth';
@@ -12,12 +12,17 @@ const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [show, setShow] = useState(false);
     const { createUser } = useAuth();
+    const location = useLocation();
+    const navigate = useNavigate();
+    
+    const from = location.state?.from || "/";
 
     const onSubmit = data => {
         console.log(data);
         createUser(data.email, data.password)
             .then(result => {
-                // console.log(result.user);
+                console.log("User Created Successfully:");
+                navigate(from);
             })
             .catch(error => {
                 console.error(error);

@@ -26,13 +26,13 @@ const dashboardLayout = () => {
 
             <div className="drawer-side is-drawer-close:overflow-visible">
                 <label htmlFor="my-drawer-4" aria-label="close sidebar" className="drawer-overlay"></label>
-                <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-24 is-drawer-open:w-64">
+                <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-open:w-64 is-drawer-close:w-24">
                     {/* Sidebar content here */}
                     <ul className="menu w-full grow">
                         {/* List item */}
-                        <span className='is-drawer-close:hidden'><ProFastLogo /></span>
+                        <span className="is-drawer-close:hidden"><ProFastLogo /></span>
                         <li className="mt-2">
-                            <Link to="/" className="flex items-center is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Homepage">
+                            <Link to="/dashboard" className="flex items-center is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Homepage">
                                 {/* Home icon */}
                                 <IoHomeOutline size={20} />
                                 <span className="is-drawer-close:hidden">Homepage</span>
