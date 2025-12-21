@@ -24,7 +24,9 @@ const PaymentForm = () => {
         return <Loading />;
     }
 
-    console.log(parcelInfo);
+    const price = parcelInfo.cost;
+    const amountInCents = price * 100;
+    // console.log(amountInCents);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -39,17 +41,43 @@ const PaymentForm = () => {
             return;
         }
 
-        const { error, paymentMethod } = await stripe.createPaymentMethod({
+        const { error: pmError, paymentMethod } = await stripe.createPaymentMethod({
             type: 'card',
             card
-        })
+        });
 
-        if (error) {
-            setError(error.message);
+        if (pmError) {
+            setError(pmError.message);
         }
         else {
             setError('');
-            console.log("Payment Method", paymentMethod);
+            // console.log("Payment Method", paymentMethod);
+        }
+
+        // create payment intent on the server
+        const res = await axiosSecure.post('/create-payment-intent', {
+            amount: amountInCents,
+            parcelId
+        });
+
+        const clientSecret = res.data.clientSecret;
+
+        const result = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: card,
+                billing_details: {
+                    name: 'Maruf Ahmed',
+                },
+            }
+        });
+
+        if (result.error) {
+            console.log(result.error);
+        }
+        else {
+            if (result.paymentIntent.status === 'succeeded') {
+                console.log('Payment Successful');
+            }
         }
     };
 
@@ -82,7 +110,7 @@ const PaymentForm = () => {
                     disabled={!stripe}
                     className="w-full py-2 rounded-md font-semibold text-gray-900 bg-[#CAEB66] hover:bg-[#bdde59] transition-colors cursor-pointer"
                 >
-                    Pay Now
+                    Pay ${price} Now
                 </button>
 
                 {error && <p className="text-red-500 text-sm">{error}</p>}
