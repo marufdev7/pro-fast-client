@@ -1,10 +1,30 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import React, { useState } from 'react';
+import { useParams } from 'react-router';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import { useQuery } from '@tanstack/react-query';
+import Loading from '../../../components/Loading/Loading';
 
 const PaymentForm = () => {
     const stripe = useStripe();
     const elements = useElements();
+    const { parcelId } = useParams();
+    const axiosSecure = useAxiosSecure();
     const [error, setError] = useState('');
+
+    const { isPending, data: parcelInfo = {} } = useQuery({
+        queryKey: ['parcels', parcelId],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/parcels/${parcelId}`);
+            return res.data;
+        }
+    });
+
+    if (isPending) {
+        return <Loading />;
+    }
+
+    console.log(parcelInfo);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -57,19 +77,18 @@ const PaymentForm = () => {
                     className="p-3 border rounded-md"
                 />
 
-                {error && <p className="text-red-500 text-sm">{error}</p>}
-
                 <button
                     type="submit"
                     disabled={!stripe}
-                    className="w-full py-2 rounded-md font-semibold text-gray-900"
-                    style={{ backgroundColor: "#CAEB66" }}
+                    className="w-full py-2 rounded-md font-semibold text-gray-900 bg-[#CAEB66] hover:bg-[#bdde59] transition-colors cursor-pointer"
                 >
                     Pay Now
                 </button>
+
+                {error && <p className="text-red-500 text-sm">{error}</p>}
+
             </form>
         </div>
-
     );
 };
 
