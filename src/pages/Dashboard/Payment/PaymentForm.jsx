@@ -4,6 +4,7 @@ import { useParams } from 'react-router';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import Loading from '../../../components/Loading/Loading';
+import Swal from 'sweetalert2';
 
 const PaymentForm = () => {
     const stripe = useStripe();
@@ -76,7 +77,13 @@ const PaymentForm = () => {
         }
         else {
             if (result.paymentIntent.status === 'succeeded') {
-                console.log('Payment Successful');
+                Swal.fire({
+                    icon: "success",
+                    title: "Payment Successful",
+                    text: "Your parcel payment has been completed.",
+                    confirmButtonText: "OK",
+                });
+                card.clear();
             }
         }
     };
