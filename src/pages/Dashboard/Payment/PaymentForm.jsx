@@ -1,6 +1,6 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import React, { use, useState } from 'react';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import Loading from '../../../components/Loading/Loading';
@@ -13,6 +13,7 @@ const PaymentForm = () => {
     const { parcelId } = useParams();
     const axiosSecure = useAxiosSecure();
     const { user } = useAuth();
+    const navigate = useNavigate();
     const [error, setError] = useState('');
 
     const { isPending, data: parcelInfo = {} } = useQuery({
@@ -81,26 +82,29 @@ const PaymentForm = () => {
                 setError('');
                 if (result.paymentIntent.status === 'succeeded') {
                     // console.log(result);
+                    const transactionId = result.paymentIntent.id;
 
                     // mark parcel as paid and create payment history
                     const paymentData = {
                         parcelId,
                         email: user?.email,
                         amount: amountInCents,
-                        transactionId: result.paymentIntent.id,
+                        transactionId: transactionId,
                         paymentMethod: result.paymentIntent.payment_method_types
                     };
 
                     const paymentRes = await axiosSecure.post('/payments', paymentData);
                     if (paymentRes.data.insertedId) {
-                        Swal.fire({
+                       await Swal.fire({
                             icon: "success",
                             title: "Payment Successful",
-                            text: "Your parcel payment has been completed.",
-                            confirmButtonText: "OK",
-                        });
+                           text: "Your parcel payment has been completed.",
+                            html: `<p>Transaction ID: <strong>${transactionId}</strong></p>`,
+                            confirmButtonText: "Go to My Parcels",
+                       });
+                        navigate('/dashboard/my-parcels');
+                        card.clear();
                     }
-                    card.clear();
                 }
             }
         }

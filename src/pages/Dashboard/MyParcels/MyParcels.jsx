@@ -136,7 +136,7 @@ const MyParcels = () => {
                             </td>
 
                             <td>
-                                <div className="flex justify-center gap-2">
+                                <div className="flex gap-2">
                                     <button
                                         onClick={() => handleView(parcel)}
                                         className="btn btn-xs btn-outline"
