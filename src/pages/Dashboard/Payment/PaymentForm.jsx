@@ -1,5 +1,5 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import React, { useState } from 'react';
+import React, { use, useState } from 'react';
 import { useParams } from 'react-router';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
@@ -80,12 +80,26 @@ const PaymentForm = () => {
             else {
                 setError('');
                 if (result.paymentIntent.status === 'succeeded') {
-                    Swal.fire({
-                        icon: "success",
-                        title: "Payment Successful",
-                        text: "Your parcel payment has been completed.",
-                        confirmButtonText: "OK",
-                    });
+                    // console.log(result);
+
+                    // mark parcel as paid and create payment history
+                    const paymentData = {
+                        parcelId,
+                        email: user?.email,
+                        amount: amountInCents,
+                        transactionId: result.paymentIntent.id,
+                        paymentMethod: result.paymentIntent.payment_method_types
+                    };
+
+                    const paymentRes = await axiosSecure.post('/payments', paymentData);
+                    if (paymentRes.data.insertedId) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Payment Successful",
+                            text: "Your parcel payment has been completed.",
+                            confirmButtonText: "OK",
+                        });
+                    }
                     card.clear();
                 }
             }

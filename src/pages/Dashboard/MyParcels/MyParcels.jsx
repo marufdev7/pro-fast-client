@@ -31,7 +31,7 @@ const MyParcels = () => {
             ? "text-green-700 font-medium"
             : status === "pending"
                 ? "text-yellow-700 font-medium"
-                : "text-gray-600 font-medium";
+                : "text-green-600 font-medium";
 
 
     const typeColor = (type) =>
@@ -46,7 +46,7 @@ const MyParcels = () => {
     };
 
     const handlePay = (id) => {
-        console.log("Proceed to payment", id);
+        // console.log("Proceed to payment", id);
         navigate(`/dashboard/payment/${id}`);
     };
 
