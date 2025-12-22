@@ -5,12 +5,14 @@ import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import Loading from '../../../components/Loading/Loading';
 import Swal from 'sweetalert2';
+import useAuth from '../../../hooks/useAuth';
 
 const PaymentForm = () => {
     const stripe = useStripe();
     const elements = useElements();
     const { parcelId } = useParams();
     const axiosSecure = useAxiosSecure();
+    const { user } = useAuth();
     const [error, setError] = useState('');
 
     const { isPending, data: parcelInfo = {} } = useQuery({
@@ -53,37 +55,39 @@ const PaymentForm = () => {
         else {
             setError('');
             // console.log("Payment Method", paymentMethod);
-        }
 
-        // create payment intent on the server
-        const res = await axiosSecure.post('/create-payment-intent', {
-            amount: amountInCents,
-            parcelId
-        });
+            // create payment intent on the server
+            const res = await axiosSecure.post('/create-payment-intent', {
+                amount: amountInCents,
+                parcelId
+            });
 
-        const clientSecret = res.data.clientSecret;
+            const clientSecret = res.data.clientSecret;
 
-        const result = await stripe.confirmCardPayment(clientSecret, {
-            payment_method: {
-                card: card,
-                billing_details: {
-                    name: 'Maruf Ahmed',
-                },
+            const result = await stripe.confirmCardPayment(clientSecret, {
+                payment_method: {
+                    card: card,
+                    billing_details: {
+                        name: user?.displayName,
+                        email: user?.email,
+                    },
+                }
+            });
+
+            if (result.error) {
+                setError(result.error.message);
             }
-        });
-
-        if (result.error) {
-            console.log(result.error);
-        }
-        else {
-            if (result.paymentIntent.status === 'succeeded') {
-                Swal.fire({
-                    icon: "success",
-                    title: "Payment Successful",
-                    text: "Your parcel payment has been completed.",
-                    confirmButtonText: "OK",
-                });
-                card.clear();
+            else {
+                setError('');
+                if (result.paymentIntent.status === 'succeeded') {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Payment Successful",
+                        text: "Your parcel payment has been completed.",
+                        confirmButtonText: "OK",
+                    });
+                    card.clear();
+                }
             }
         }
     };
