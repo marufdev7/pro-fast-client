@@ -111,7 +111,7 @@ const MyParcels = () => {
                             <td>{index + 1}</td>
 
                             <td>
-                                <span className={`badge ${typeColor(parcel.type)} text-[10px] md:text-xs`}>
+                                <span className={`badge ${typeColor(parcel.type)} text-[10px] md:text-sm`}>
                                     {parcel.type === "document" ? "Document" : "Non-Document"}
                                 </span>
                             </td>

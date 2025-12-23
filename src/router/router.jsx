@@ -7,9 +7,10 @@ import Register from "../pages/Authentication/Register/Register";
 import Coverage from "../pages/Coverage/Coverage";
 import PrivateRoute from "../routes/PrivateRoute";
 import SendParcel from "../pages/SendParcel/SendParcel";
-import DashboardLayout from "../layout/dashboardLayout";
+import DashboardLayout from "../layout/DashboardLayout";
 import MyParcels from "../pages/Dashboard/MyParcels/MyParcels";
 import Payment from "../pages/Dashboard/Payment/Payment";
+import PaymentHistory from "../pages/Dashboard/PaymentHistory/PaymentHistory";
 
 export const router = createBrowserRouter([
     {
@@ -57,6 +58,10 @@ export const router = createBrowserRouter([
             {
                 path: 'payment/:parcelId',
                 Component: Payment
+            },
+            {
+                path: 'payment-history',
+                Component: PaymentHistory
             }
         ]
     }
