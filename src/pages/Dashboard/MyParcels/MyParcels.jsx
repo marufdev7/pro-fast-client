@@ -92,8 +92,8 @@ const MyParcels = () => {
 
     return (
         <div className="overflow-x-auto bg-white rounded-xl shadow">
-            <table className="table table-zebra">
-                <thead className="bg-base-200">
+            <table className="table table-zebra min-w-[640px]">
+                <thead className="bg-base-200 text-xs md:text-sm">
                     <tr>
                         <th></th>
                         <th>Type</th>
@@ -101,42 +101,35 @@ const MyParcels = () => {
                         <th>Cost</th>
                         <th>Payment Status</th>
                         <th>Created At</th>
-                        <th className="text-center">Actions</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     {sortedParcels.map((parcel, index) => (
-                        <tr key={parcel._id}>
+                        <tr key={parcel._id} className="text-xs md:text-sm">
                             <td>{index + 1}</td>
 
                             <td>
-                                <span className={`badge ${typeColor(parcel.type)}`}>
-                                    {parcel.type === "document"
-                                        ? "Document"
-                                        : "Non-Document"}
+                                <span className={`badge ${typeColor(parcel.type)} text-[10px] md:text-xs`}>
+                                    {parcel.type === "document" ? "Document" : "Non-Document"}
                                 </span>
                             </td>
 
-                            <td className="font-semibold">
-                                {parcel.title}
-                            </td>
-
+                            <td className="font-semibold">{parcel.title}</td>
 
                             <td className="font-semibold">৳ {parcel.cost}</td>
 
                             <td>
-                                <span className={`badge ${paymentBadge(parcel.payment_status)}`}>
+                                <span className={`badge ${paymentBadge(parcel.payment_status)} text-sm md:text-[14px]`}>
                                     {parcel.payment_status}
                                 </span>
                             </td>
 
-                            <td className="text-sm text-gray-600">
-                                {parcel.creation_date}
-                            </td>
+                            <td className="text-gray-600">{parcel.creation_date}</td>
 
                             <td>
-                                <div className="flex gap-2">
+                                <div className="flex flex-wrap gap-2">
                                     <button
                                         onClick={() => handleView(parcel)}
                                         className="btn btn-xs btn-outline"
