@@ -95,15 +95,15 @@ const PaymentForm = () => {
 
                     const paymentRes = await axiosSecure.post('/payments', paymentData);
                     if (paymentRes.data.insertedId) {
-                       await Swal.fire({
+                        await Swal.fire({
                             icon: "success",
                             title: "Payment Successful",
-                           text: "Your parcel payment has been completed.",
+                            text: "Your parcel payment has been completed.",
                             html: `<p>Transaction ID: <strong>${transactionId}</strong></p>`,
                             confirmButtonText: "Go to My Parcels",
-                       });
-                        navigate('/dashboard/my-parcels');
+                        });
                         card.clear();
+                        navigate('/dashboard/my-parcels');
                     }
                 }
             }
