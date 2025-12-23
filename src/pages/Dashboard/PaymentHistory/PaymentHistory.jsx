@@ -30,7 +30,6 @@ const PaymentHistory = () => {
 
     return (
         <div className="overflow-x-auto bg-white rounded-xl shadow-sm">
-            {/* ✅ Added `min-w-[600px]` so table scrolls instead of squishing on mobile */}
             <table className="table table-sm md:table-md min-w-[600px]">
                 <thead className="bg-gray-50 text-gray-600 text-xs md:text-sm">
                     <tr>
