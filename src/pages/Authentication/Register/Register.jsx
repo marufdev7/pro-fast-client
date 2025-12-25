@@ -27,6 +27,12 @@ const Register = () => {
                 console.log("User Created Successfully:");
 
                 // update userinfo in the database
+                const userInfo = {
+                    email: data.email,
+                    role: 'user', //default
+                    created_at: new Date().toISOString(),
+                    last_log_in: new Date().toISOString()
+                }
 
                 // update user profile in firebase
                 const userProfile = {
