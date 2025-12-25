@@ -13,6 +13,7 @@ const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [show, setShow] = useState(false);
     const [profilePic, setProfilePic] = useState('');
+    const [preview, setPreview] = useState(null);
     const { createUser, updateUserProfile } = useAuth();
     const location = useLocation();
     const navigate = useNavigate();
@@ -48,6 +49,12 @@ const Register = () => {
 
     const handleImageUpload = async (e) => {
         const image = e.target.files[0];
+        if (!image) {
+            return;
+        }
+
+        // set img preview
+        setPreview(URL.createObjectURL(image));
 
         const formData = new FormData();
         formData.append('image', image)
@@ -71,8 +78,13 @@ const Register = () => {
                         <label className='cursor-pointer'>
                             <input type="file"
                                 onChange={handleImageUpload}
-                                className='hidden' accept="image/*" />
-                            <img src={uploadImg} alt="Upload" />
+                                className='hidden'
+                                accept="image/*" />
+                            {/* show img preview */}
+                            <img
+                                src={preview || uploadImg}
+                                className="w-[50px] h-[50px] object-cover rounded-full"
+                                alt="Upload" />
                         </label>
 
                         <div className="space-y-6 mt-5">
