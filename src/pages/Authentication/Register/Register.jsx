@@ -6,15 +6,17 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import useAuth from '../../../hooks/useAuth';
 import uploadImg from '../../../assets/image-upload-icon.png';
 import GoogleLogin from '../../../components/SocialLogin/GoogleLogin';
+import axios from 'axios';
 
 
 const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [show, setShow] = useState(false);
+    const [profilePic, setProfilePic] = useState('');
     const { createUser } = useAuth();
     const location = useLocation();
     const navigate = useNavigate();
-    
+
     const from = location.state?.from || "/";
 
     const onSubmit = data => {
@@ -29,12 +31,15 @@ const Register = () => {
             })
     };
 
-    const handleImageUpload = e => {
+    const handleImageUpload = async (e) => {
         const image = e.target.files[0];
 
         const formData = new FormData();
         formData.append('image', image)
 
+        const imageUploadUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_img_uploadKey}`;
+        const res = await axios.post(imageUploadUrl, formData);
+        setProfilePic(res.data.data.url);
     }
 
     return (
@@ -134,7 +139,7 @@ const Register = () => {
                                 <p className='text-gray-600'>Or</p>
                             </div>
 
-                            <GoogleLogin name="Register"/>
+                            <GoogleLogin name="Register" />
                         </div>
                     </div>
                 </div>
