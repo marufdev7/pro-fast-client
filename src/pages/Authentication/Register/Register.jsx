@@ -7,6 +7,7 @@ import useAuth from '../../../hooks/useAuth';
 import uploadImg from '../../../assets/image-upload-icon.png';
 import GoogleLogin from '../../../components/SocialLogin/GoogleLogin';
 import axios from 'axios';
+import useAxios from '../../../hooks/useAxios';
 
 
 const Register = () => {
@@ -15,6 +16,7 @@ const Register = () => {
     const [profilePic, setProfilePic] = useState('');
     const [preview, setPreview] = useState(null);
     const { createUser, updateUserProfile } = useAuth();
+    const axiosInstance = useAxios();
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -23,7 +25,7 @@ const Register = () => {
     const onSubmit = data => {
         console.log(data);
         createUser(data.email, data.password)
-            .then(result => {
+            .then(async (result) => {
                 console.log("User Created Successfully:");
 
                 // update userinfo in the database
@@ -33,6 +35,9 @@ const Register = () => {
                     created_at: new Date().toISOString(),
                     last_log_in: new Date().toISOString()
                 }
+
+                const userRes = await axiosInstance.post('/users', userInfo);
+                console.log(userRes.data);
 
                 // update user profile in firebase
                 const userProfile = {

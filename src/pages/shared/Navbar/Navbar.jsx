@@ -49,6 +49,9 @@ const Navbar = () => {
 
                 {user ? (
                     <>
+                        <span>
+                            <img src={user.photoURL} className="w-[50px] h-[50px] object-cover rounded-full" alt="user" />
+                        </span>
                         <span className="text-sm text-gray-700">
                             {user?.displayName || user?.email}
                         </span>
