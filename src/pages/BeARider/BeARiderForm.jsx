@@ -72,7 +72,7 @@ const BeARiderForm = () => {
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className="space-y-4 max-w-xl mx-auto bg-white p-6 rounded shadow"
+            className="space-y-4 p-4 m-2 rounded-2xl md:p-6 md:m-0 shadow"
         >
             <h2 className="text-xl font-bold mb-4">🚴‍♂️ Be A Rider</h2>
 
