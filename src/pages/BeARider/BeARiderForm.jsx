@@ -1,10 +1,11 @@
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
-import serviceCenters from "../../../public/warehouses.json";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
-const BeARiderForm = () => {
+const BeARiderForm = ({ serviceCenters }) => {
     const { user } = useAuth();
+    const axiosSecure = useAxiosSecure();
 
     const {
         register,
@@ -31,14 +32,14 @@ const BeARiderForm = () => {
     const selectedDistrict = watch("district");
 
     const onSubmit = async (data) => {
-        const payload = {
+        const riderData = {
             ...data,
             name: user?.displayName,
             email: user?.email,
             status: "pending",
             application_date: new Date().toLocaleString(),
         };
-        console.log(payload);
+        console.log(riderData);
 
         Swal.fire({
             title: "⏳ Submitting application...",
@@ -47,17 +48,22 @@ const BeARiderForm = () => {
             didOpen: () => Swal.showLoading(),
         });
 
+
+
         try {
-            await new Promise((res) => setTimeout(res, 1200)); // simulate async
+            axiosSecure.post('/riders', riderData)
+                .then(res => {
+                    if (res.data.insertedId) {
+                        Swal.fire({
+                            title: "✅ Application Submitted",
+                            text: "Your rider application is now pending review.",
+                            icon: "success",
+                            confirmButtonText: "OK",
+                        });
+                        // reset();
+                    }
+                })
 
-            Swal.fire({
-                title: "✅ Application Submitted",
-                text: "Your rider application is now pending review.",
-                icon: "success",
-                confirmButtonText: "OK",
-            });
-
-            reset();
         } catch (err) {
             console.error("Failed to submit:", err);
             Swal.fire({

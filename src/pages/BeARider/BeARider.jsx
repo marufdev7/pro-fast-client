@@ -1,8 +1,10 @@
 import React from 'react';
 import BeARiderForm from './BeARiderForm';
 import agentPending from '../../assets/agent-pending.png'
+import { useLoaderData } from 'react-router';
 
 const BeARider = () => {
+    const serviceCenters = useLoaderData();
     return (
         <div className='bg-white rounded-3xl mt-8 mb-8 pb-20 lg:pr-24 lg:pl-24'>
             <div className='w-full lg:w-1/2 space-y-4 pt-5 pl-4 lg:pl-0'>
@@ -11,7 +13,7 @@ const BeARider = () => {
             </div>
             <hr className='text-gray-300 mt-12 mb-12' />
             <div className='flex justify-between'>
-                <BeARiderForm />
+                <BeARiderForm serviceCenters={serviceCenters} />
                 <img className='hidden md:block w-1/2' src={agentPending} alt="" />
             </div>
         </div>
