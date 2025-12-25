@@ -13,7 +13,7 @@ const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [show, setShow] = useState(false);
     const [profilePic, setProfilePic] = useState('');
-    const { createUser } = useAuth();
+    const { createUser, updateUserProfile } = useAuth();
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -24,6 +24,21 @@ const Register = () => {
         createUser(data.email, data.password)
             .then(result => {
                 console.log("User Created Successfully:");
+
+                // update userinfo in the database
+
+                // update user profile in firebase
+                const userProfile = {
+                    displayName: data.name,
+                    photoURL: profilePic
+                }
+                updateUserProfile(userProfile)
+                    .then(() => {
+                        console.log('Profile name and Picture updated');
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
                 navigate(from);
             })
             .catch(error => {
@@ -37,9 +52,13 @@ const Register = () => {
         const formData = new FormData();
         formData.append('image', image)
 
-        const imageUploadUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_img_uploadKey}`;
-        const res = await axios.post(imageUploadUrl, formData);
-        setProfilePic(res.data.data.url);
+        try {
+            const imageUploadUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_img_uploadKey}`;
+            const res = await axios.post(imageUploadUrl, formData);
+            setProfilePic(res.data.data.url);
+        } catch (err) {
+            console.log('Upload failed:', err);
+        }
     }
 
     return (
