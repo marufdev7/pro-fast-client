@@ -56,7 +56,7 @@ const dashboardLayout = () => {
                                 </NavLink>
                             </li>
                             <li className='mt-2'>
-                                <NavLink to='/dashboard/tracking'
+                                <NavLink to='/dashboard/track-parcel'
                                     className="flex items-center is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Track a Parcel"
                                 >
                                     <img className='w-6' src={trackingIcon} alt="Tracking Icon" />

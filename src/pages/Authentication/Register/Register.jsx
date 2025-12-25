@@ -29,6 +29,14 @@ const Register = () => {
             })
     };
 
+    const handleImageUpload = e => {
+        const image = e.target.files[0];
+
+        const formData = new FormData();
+        formData.append('image', image)
+
+    }
+
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -37,7 +45,9 @@ const Register = () => {
                         <h1 className="text-5xl font-bold">Create an Account</h1>
                         <p className="text-gray-600 font-medium mt-1 mb-5">Register with ProFast</p>
                         <label className='cursor-pointer'>
-                            <input type="file" className='hidden' accept="image/*" />
+                            <input type="file"
+                                onChange={handleImageUpload}
+                                className='hidden' accept="image/*" />
                             <img src={uploadImg} alt="Upload" />
                         </label>
 
