@@ -5,6 +5,7 @@ import { Link, NavLink, Outlet } from 'react-router';
 import ProFastLogo from '../components/ProFastLogo/ProFastLogo';
 import { FiBox, FiCreditCard, FiUser } from "react-icons/fi";
 import trackingIcon from '../assets/tracking.png';
+import { FaUserCheck, FaUserClock } from 'react-icons/fa6';
 
 const dashboardLayout = () => {
     return (
@@ -63,6 +64,30 @@ const dashboardLayout = () => {
                                     <span className="is-drawer-close:hidden">Track a Parcel</span>
                                 </NavLink>
                             </li>
+
+                            <li className="mt-2">
+                                <NavLink
+                                    to="/dashboard/active-riders"
+                                    className="flex items-center is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                                    data-tip="Active Riders"
+                                >
+                                    <FaUserCheck size={20}/>
+                                    <span className="is-drawer-close:hidden">Active Riders</span>
+                                </NavLink>
+                            </li>
+
+                            <li className="mt-2">
+                                <NavLink
+                                    to="/dashboard/pending-riders"
+                                    className="flex items-center is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                                    data-tip="Pending Riders"
+                                >
+                                    <FaUserClock size={20} className=''/>
+                                    <span className="is-drawer-close:hidden">Pending Riders</span>
+                                </NavLink>
+                            </li>
+
+
                             <li className='mt-2'>
                                 <NavLink to='/dashboard/update-profile'
                                     className="flex items-center is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Update Profile"

@@ -60,7 +60,7 @@ const BeARiderForm = ({ serviceCenters }) => {
                             icon: "success",
                             confirmButtonText: "OK",
                         });
-                        // reset();
+                        reset();
                     }
                 })
 
