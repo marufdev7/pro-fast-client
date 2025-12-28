@@ -14,7 +14,6 @@ const PendingRiders = () => {
         queryKey: ['pending-riders'],
         queryFn: async () => {
             const res = await axiosSecure.get('/riders/pending');
-            console.log(res.data);
             return res.data;
         }
     });
@@ -97,7 +96,7 @@ const PendingRiders = () => {
                                         {rider.status === "pending" && (
                                             <>
                                                 <button
-                                                    onClick={() => updateStatus(rider, "approved")}
+                                                    onClick={() => updateStatus(rider, "active")}
                                                     className="btn btn-xs bg-emerald-600 text-white"
                                                 >
                                                     <FaCheck /> Approve

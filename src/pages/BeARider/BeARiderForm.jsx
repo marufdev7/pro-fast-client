@@ -39,7 +39,7 @@ const BeARiderForm = ({ serviceCenters }) => {
             status: "pending",
             application_date: new Date().toLocaleString(),
         };
-        console.log(riderData);
+        // console.log(riderData);
 
         Swal.fire({
             title: "⏳ Submitting application...",
