@@ -5,7 +5,7 @@ import { Link, NavLink, Outlet } from 'react-router';
 import ProFastLogo from '../components/ProFastLogo/ProFastLogo';
 import { FiBox, FiCreditCard, FiUser } from "react-icons/fi";
 import trackingIcon from '../assets/tracking.png';
-import { FaUserCheck, FaUserClock } from 'react-icons/fa6';
+import { FaUserCheck, FaUserClock, FaUserShield } from 'react-icons/fa6';
 
 const dashboardLayout = () => {
     return (
@@ -84,6 +84,16 @@ const dashboardLayout = () => {
                                 >
                                     <FaUserClock size={20} className=''/>
                                     <span className="is-drawer-close:hidden">Pending Riders</span>
+                                </NavLink>
+                            </li>
+                            <li className="mt-2">
+                                <NavLink
+                                    to="/dashboard/make-admin"
+                                    className="flex items-center is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                                    data-tip="Make Admin"
+                                >
+                                    <FaUserShield size={20} className=''/>
+                                    <span className="is-drawer-close:hidden">Make Admin</span>
                                 </NavLink>
                             </li>
 
