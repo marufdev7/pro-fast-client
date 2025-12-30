@@ -1,5 +1,5 @@
 import React from 'react';
-import { GoHistory, GoSidebarCollapse } from 'react-icons/go';
+import { GoSidebarCollapse } from 'react-icons/go';
 import { IoHomeOutline, IoSettingsOutline } from 'react-icons/io5';
 import { Link, NavLink, Outlet } from 'react-router';
 import ProFastLogo from '../components/ProFastLogo/ProFastLogo';

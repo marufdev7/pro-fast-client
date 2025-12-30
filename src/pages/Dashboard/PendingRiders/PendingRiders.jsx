@@ -22,7 +22,7 @@ const PendingRiders = () => {
         return <Loading />
     }
 
-    const updateStatus = async (rider, status) => {
+    const updateStatus = async (rider, status, email) => {
         const confirm = await Swal.fire({
             title: `${status === "approved" ? "Approve" : "Reject"} rider?`,
             icon: status === "approved" ? "question" : "warning",
@@ -32,7 +32,7 @@ const PendingRiders = () => {
 
         if (!confirm.isConfirmed) return;
 
-        const res = await axiosSecure.patch(`/riders/${rider._id}`, { status });
+        const res = await axiosSecure.patch(`/riders/${rider._id}`, { status, email });
 
         if (res.data.modifiedCount > 0) {
             await refetch();
@@ -96,14 +96,14 @@ const PendingRiders = () => {
                                         {rider.status === "pending" && (
                                             <>
                                                 <button
-                                                    onClick={() => updateStatus(rider, "active")}
+                                                    onClick={() => updateStatus(rider, "active", rider.email)}
                                                     className="btn btn-xs bg-emerald-600 text-white"
                                                 >
                                                     <FaCheck /> Approve
                                                 </button>
 
                                                 <button
-                                                    onClick={() => updateStatus(rider, "rejected")}
+                                                    onClick={() => updateStatus(rider, "rejected", rider.email)}
                                                     className="btn btn-xs bg-rose-600 text-white"
                                                 >
                                                     <FaTimes /> Reject
