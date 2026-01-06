@@ -67,6 +67,11 @@ const MakeAdmin = () => {
                     className="input input-bordered w-full"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                            handleSearch();
+                        }
+                    }}
                 />
                 <button
                     onClick={handleSearch}

@@ -24,8 +24,8 @@ const PendingRiders = () => {
 
     const updateStatus = async (rider, status, email) => {
         const confirm = await Swal.fire({
-            title: `${status === "approved" ? "Approve" : "Reject"} rider?`,
-            icon: status === "approved" ? "question" : "warning",
+            title: `${status === "active" ? "Approve" : "Reject"} rider?`,
+            icon: status === "active" ? "question" : "warning",
             showCancelButton: true,
             confirmButtonText: "Confirm",
         });
