@@ -6,8 +6,13 @@ import ProFastLogo from '../components/ProFastLogo/ProFastLogo';
 import { FiBox, FiCreditCard, FiUser } from "react-icons/fi";
 import trackingIcon from '../assets/tracking.png';
 import { FaUserCheck, FaUserClock, FaUserShield } from 'react-icons/fa6';
+import useUserRole from '../hooks/useUserRole';
 
 const dashboardLayout = () => {
+
+    const { role, roleLoading } = useUserRole();
+    // console.log(role, roleLoading);
+
     return (
         <div className="drawer lg:drawer-open">
             <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -71,7 +76,7 @@ const dashboardLayout = () => {
                                     className="flex items-center is-drawer-close:tooltip is-drawer-close:tooltip-right"
                                     data-tip="Active Riders"
                                 >
-                                    <FaUserCheck size={20}/>
+                                    <FaUserCheck size={20} />
                                     <span className="is-drawer-close:hidden">Active Riders</span>
                                 </NavLink>
                             </li>
@@ -82,7 +87,7 @@ const dashboardLayout = () => {
                                     className="flex items-center is-drawer-close:tooltip is-drawer-close:tooltip-right"
                                     data-tip="Pending Riders"
                                 >
-                                    <FaUserClock size={20} className=''/>
+                                    <FaUserClock size={20} />
                                     <span className="is-drawer-close:hidden">Pending Riders</span>
                                 </NavLink>
                             </li>
@@ -92,7 +97,7 @@ const dashboardLayout = () => {
                                     className="flex items-center is-drawer-close:tooltip is-drawer-close:tooltip-right"
                                     data-tip="Make Admin"
                                 >
-                                    <FaUserShield size={20} className=''/>
+                                    <FaUserShield size={20} />
                                     <span className="is-drawer-close:hidden">Make Admin</span>
                                 </NavLink>
                             </li>

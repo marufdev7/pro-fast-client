@@ -8,11 +8,7 @@ const MakeAdmin = () => {
     const axiosSecure = useAxiosSecure();
     const [email, setEmail] = useState("");
 
-    const {
-        data: users = [],
-        refetch,
-        isFetching,
-    } = useQuery({
+    const { data: users = [], refetch, isFetching } = useQuery({
         queryKey: ["search-user", email],
         enabled: false,
         queryFn: async () => {
