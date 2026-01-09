@@ -22,7 +22,7 @@ const PaymentHistory = () => {
 
     if (payments.length === 0) {
         return (
-            <div className="bg-white rounded-xl p-10 text-center text-gray-500">
+            <div className="bg-white h-screen rounded-xl p-10 text-center text-gray-500">
                 You have no payment history yet.
             </div>
         );

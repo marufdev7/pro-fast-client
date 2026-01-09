@@ -89,6 +89,13 @@ const MyParcels = () => {
         }
     };
 
+    if (parcels.length === 0) {
+        return (
+            <div className="bg-white h-screen rounded-xl p-10 text-center text-gray-500">
+                You have no parcels yet.
+            </div>
+        );
+    }
 
     return (
         <div className="overflow-x-auto bg-white rounded-xl shadow">
