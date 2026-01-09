@@ -70,41 +70,46 @@ const dashboardLayout = () => {
                                 </NavLink>
                             </li>
 
-                            <li className="mt-2">
-                                <NavLink
-                                    to="/dashboard/active-riders"
-                                    className="flex items-center is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                                    data-tip="Active Riders"
-                                >
-                                    <FaUserCheck size={20} />
-                                    <span className="is-drawer-close:hidden">Active Riders</span>
-                                </NavLink>
-                            </li>
+                            {/* Admin links */}
+                            {!roleLoading && role === 'admin' &&
+                                <>
+                                    <li className="mt-2">
+                                        <NavLink
+                                            to="/dashboard/active-riders"
+                                            className="flex items-center is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                                            data-tip="Active Riders"
+                                        >
+                                            <FaUserCheck size={20} />
+                                            <span className="is-drawer-close:hidden">Active Riders</span>
+                                        </NavLink>
+                                    </li>
 
-                            <li className="mt-2">
-                                <NavLink
-                                    to="/dashboard/pending-riders"
-                                    className="flex items-center is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                                    data-tip="Pending Riders"
-                                >
-                                    <FaUserClock size={20} />
-                                    <span className="is-drawer-close:hidden">Pending Riders</span>
-                                </NavLink>
-                            </li>
-                            <li className="mt-2">
-                                <NavLink
-                                    to="/dashboard/make-admin"
-                                    className="flex items-center is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                                    data-tip="Make Admin"
-                                >
-                                    <FaUserShield size={20} />
-                                    <span className="is-drawer-close:hidden">Make Admin</span>
-                                </NavLink>
-                            </li>
-
+                                    <li className="mt-2">
+                                        <NavLink
+                                            to="/dashboard/pending-riders"
+                                            className="flex items-center is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                                            data-tip="Pending Riders"
+                                        >
+                                            <FaUserClock size={20} />
+                                            <span className="is-drawer-close:hidden">Pending Riders</span>
+                                        </NavLink>
+                                    </li>
+                                    <li className="mt-2">
+                                        <NavLink
+                                            to="/dashboard/make-admin"
+                                            className="flex items-center is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                                            data-tip="Make Admin"
+                                        >
+                                            <FaUserShield size={20} />
+                                            <span className="is-drawer-close:hidden">Make Admin</span>
+                                        </NavLink>
+                                    </li>
+                                </>
+                            }
 
                             <li className='mt-2'>
-                                <NavLink to='/dashboard/update-profile'
+                                <NavLink
+                                    // to='/dashboard/update-profile'
                                     className="flex items-center is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Update Profile"
                                 >
                                     <FiUser size={20} />
