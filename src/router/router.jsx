@@ -85,11 +85,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'pending-riders',
-                Component: PendingRiders
+                element: <AdminRoute> <PendingRiders /></AdminRoute>,
             },
             {
                 path: 'active-riders',
-                Component: ActiveRiders
+                element: <AdminRoute> <ActiveRiders /></AdminRoute>,
             },
             {
                 path: 'make-admin',
