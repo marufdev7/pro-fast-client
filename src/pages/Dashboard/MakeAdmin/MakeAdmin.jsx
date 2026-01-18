@@ -10,7 +10,8 @@ const MakeAdmin = () => {
 
     const { data: users = [], refetch, isFetching } = useQuery({
         queryKey: ["search-user", email],
-        enabled: false,
+        enabled: !!email, //auto search / fetching in every keystroke or state change
+        // enabled: false, // manual search on button click and enter key
         queryFn: async () => {
             const res = await axiosSecure.get(`/users/search?email=${email}`);
             return res.data;
@@ -52,7 +53,7 @@ const MakeAdmin = () => {
     };
 
     return (
-        <div className="bg-white rounded-xl p-6">
+        <div className="bg-white min-h-screen rounded-xl p-6">
             <h2 className="text-xl font-bold mb-4">Make Admin</h2>
 
             {/* Search box */}
