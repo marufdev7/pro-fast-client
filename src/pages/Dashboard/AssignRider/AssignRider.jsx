@@ -1,15 +1,17 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { FaUserPlus } from "react-icons/fa";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Loading from "../../../components/Loading/Loading";
+import Swal from "sweetalert2";
 
 const AssignRider = () => {
     const axiosSecure = useAxiosSecure();
     const [selectedParcel, setSelectedParcel] = useState(null);
+    const queryClient = useQueryClient();
 
     // Load assignable parcels
-    const { data: parcels = [], isPending } = useQuery({
+    const { data: parcels = [], isPending, refetch } = useQuery({
         queryKey: ["assignable-parcels"],
         queryFn: async () => {
             const res = await axiosSecure.get(
@@ -32,6 +34,40 @@ const AssignRider = () => {
     });
     // console.log("Selected Parcel:", selectedParcel);
     // console.log("Riders Data:", riders);
+
+    const assignRiderMutation = useMutation({
+        mutationFn: async ({ parcelId, rider }) => {
+            return axiosSecure.patch(`/parcels/${parcelId}/assign-rider`, {
+                parcelId,
+                riderId: rider._id,
+                riderName: rider.name,
+            });
+        },
+        onSuccess: () => {
+            Swal.fire("Assigned", "Parcel is now in transit", "success");
+            queryClient.invalidateQueries(["assignable-parcels"]);
+            refetch();
+        },
+        onError: () => {
+            Swal.fire("Error", "Failed to assign rider", "error");
+        },
+        
+    });
+
+    const handleAssignRider = async (parcelId, rider) => {
+        // console.log(parcelId, rider);
+        const confirm = await Swal.fire({
+            title: "Assign this rider?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonText: "Assign",
+        });
+
+        if (!confirm.isConfirmed) return;
+
+        assignRiderMutation.mutate({ parcelId, rider });
+    };
+
 
     if (isPending) return <Loading />;
 
@@ -152,17 +188,13 @@ const AssignRider = () => {
                                                 <td>{rider.district}</td>
                                                 <td>
                                                     <button
-                                                        className="btn btn-xs btn-success"
+                                                        className="btn btn-xs btn-success flex items-center gap-1"
                                                         onClick={() =>
-                                                            console.log(
-                                                                "Assign",
-                                                                rider,
-                                                                "to",
-                                                                selectedParcel
-                                                            )
+                                                            handleAssignRider(selectedParcel._id, rider)
                                                         }
                                                     >
-                                                        Select
+                                                        <FaUserPlus />
+                                                        Assign
                                                     </button>
                                                 </td>
                                             </tr>
