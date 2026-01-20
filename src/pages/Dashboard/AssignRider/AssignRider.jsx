@@ -19,7 +19,7 @@ const AssignRider = () => {
         },
     });
 
-    // Load riders by district (service center)
+    // Load riders by district
     const { data: riders = [], isPending: ridersLoading } = useQuery({
         queryKey: ["riders", selectedParcel?.receiverWarehouse],
         enabled: !!selectedParcel,
@@ -118,8 +118,13 @@ const AssignRider = () => {
                         </p>
 
                         <p className="text-sm mb-4">
-                            <strong>Receiver:</strong>{" "}
-                            {selectedParcel.receiverName} ({selectedParcel.receiverContact})
+                            <strong>Receiver:</strong>
+                            <br />
+                            Name: {selectedParcel.receiverName}
+                            <br />
+                            Mobile: {selectedParcel.receiverContact}
+                            <br />
+                            Address: {selectedParcel.receiverAddress}
                         </p>
 
                         {ridersLoading ? (
@@ -143,7 +148,7 @@ const AssignRider = () => {
                                         {riders.map((rider) => (
                                             <tr key={rider._id}>
                                                 <td>{rider.name}</td>
-                                                <td>{rider.phone}</td>
+                                                <td>{rider.contact}</td>
                                                 <td>{rider.district}</td>
                                                 <td>
                                                     <button
