@@ -89,6 +89,7 @@ const Register = () => {
                         <label className='cursor-pointer'>
                             <input type="file"
                                 onChange={handleImageUpload}
+                                required
                                 className='hidden'
                                 accept="image/*" />
                             {/* show img preview */}

@@ -1,12 +1,13 @@
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const SendParcel = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
+    const navigate = useNavigate();
     const warehouses = useLoaderData();
 
     const { register, handleSubmit, watch, formState: { errors }, reset, } = useForm({
@@ -139,9 +140,9 @@ const SendParcel = () => {
             // save data to the server
             axiosSecure.post('/parcels', parcelData)
                 .then(res => {
-                    console.log(res.data);
-                    if (res.data.insertedId) {
-                        //TODO: redirect to payment page
+                    // console.log(res.data, parcelData);
+                    const parcelId = res.data.insertedId;
+                    if (parcelId) {
                         Swal.fire({
                             title: "Success!",
                             text: `Parcel saved successfully. Your Tracking ID: ${parcelData.tracking_id}`,
@@ -149,6 +150,8 @@ const SendParcel = () => {
                             confirmButtonText: "OK",
                         });
                         reset();
+                        //TODO: redirect to payment page
+                        navigate(`/dashboard/payment/${parcelId}`);
                     }
                 });
 

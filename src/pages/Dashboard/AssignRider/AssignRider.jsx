@@ -51,7 +51,7 @@ const AssignRider = () => {
         onError: () => {
             Swal.fire("Error", "Failed to assign rider", "error");
         },
-        
+
     });
 
     const handleAssignRider = async (parcelId, rider) => {
@@ -177,6 +177,7 @@ const AssignRider = () => {
                                             <th>Name</th>
                                             <th>Phone</th>
                                             <th>District</th>
+                                            <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -186,12 +187,15 @@ const AssignRider = () => {
                                                 <td>{rider.name}</td>
                                                 <td>{rider.contact}</td>
                                                 <td>{rider.district}</td>
+                                                <th>{rider.working_status || "Available"}</th>
                                                 <td>
                                                     <button
                                                         className="btn btn-xs btn-success flex items-center gap-1"
                                                         onClick={() =>
                                                             handleAssignRider(selectedParcel._id, rider)
                                                         }
+                                                        disabled={rider.working_status === "in-delivery"}
+
                                                     >
                                                         <FaUserPlus />
                                                         Assign
