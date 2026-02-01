@@ -66,7 +66,7 @@ const dashboardLayout = () => {
                             </li>
                             <li className='mt-2'>
                                 <NavLink to='/dashboard/track-parcel'
-                                    className="flex items-center -left-1 is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Track a Parcel"
+                                    className="flex items-center -ml-1 is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Track a Parcel"
                                 >
                                     <img className='w-6' src={trackingIcon} alt="Tracking Icon" />
                                     <span className="is-drawer-close:hidden">Track a Parcel</span>
@@ -78,7 +78,7 @@ const dashboardLayout = () => {
                                 <>
                                     <li className="mt-2">
                                         <NavLink
-                                            to="/dashboard/rider-tasks"
+                                            to="/dashboard/accepted-parcels"
                                             className="flex items-center is-drawer-close:tooltip is-drawer-close:tooltip-right"
                                             data-tip="Pending Deliveries"
                                         >
@@ -118,7 +118,7 @@ const dashboardLayout = () => {
                                     <li className="mt-2">
                                         <NavLink
                                             to="/dashboard/pending-riders"
-                                            className="flex items-center -left-1 is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                                            className="flex items-center -ml-1 is-drawer-close:tooltip is-drawer-close:tooltip-right"
                                             data-tip="Pending Riders"
                                         >
                                             <LiaUserClockSolid size={22} />
@@ -128,7 +128,7 @@ const dashboardLayout = () => {
                                     <li className="mt-2">
                                         <NavLink
                                             to="/dashboard/make-admin"
-                                            className="flex items-center -left-1 is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                                            className="flex items-center -ml-1 is-drawer-close:tooltip is-drawer-close:tooltip-right"
                                             data-tip="Make Admin"
                                         >
                                             <LiaUserShieldSolid size={22} />
