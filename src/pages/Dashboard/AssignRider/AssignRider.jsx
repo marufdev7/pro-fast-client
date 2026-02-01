@@ -51,7 +51,6 @@ const AssignRider = () => {
         onError: () => {
             Swal.fire("Error", "Failed to assign rider", "error");
         },
-
     });
 
     const handleAssignRider = async (parcelId, rider) => {

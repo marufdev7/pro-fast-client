@@ -1,27 +1,30 @@
-import React from 'react';
-import { GoSidebarCollapse } from 'react-icons/go';
-import { IoHomeOutline, IoSettingsOutline } from 'react-icons/io5';
+import React, { useState } from 'react';
+import { GoSidebarCollapse, GoSidebarExpand } from 'react-icons/go';
 import { Link, NavLink, Outlet } from 'react-router';
 import ProFastLogo from '../components/ProFastLogo/ProFastLogo';
-import { FiBox, FiCreditCard, FiUser } from "react-icons/fi";
+import { FiBox, FiCreditCard, FiTruck, FiUser, FiUserCheck, FiUserPlus } from "react-icons/fi";
+import { IoHomeOutline, IoSettingsOutline } from 'react-icons/io5';
+import { LiaUserClockSolid, LiaUserShieldSolid } from "react-icons/lia";
 import trackingIcon from '../assets/tracking.png';
-import { FaUserCheck, FaUserClock, FaUserPlus, FaUserShield } from 'react-icons/fa6';
 import useUserRole from '../hooks/useUserRole';
 
 const dashboardLayout = () => {
 
     const { role, roleLoading } = useUserRole();
+    const [collapsed, setCollapsed] = useState(false);
+
     // console.log(role, roleLoading);
 
     return (
-        <div className="drawer lg:drawer-open">
-            <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
+        <div className="drawer drawer-open">
+            <input id="my-drawer-4" type="checkbox" className="drawer-toggle" defaultChecked />
             <div className="drawer-content">
                 {/* Navbar */}
                 <nav className="navbar w-full bg-base-300">
-                    <label htmlFor="my-drawer-4" aria-label="open sidebar" className="btn btn-square btn-ghost">
-                        {/* Sidebar toggle icon */}
-                        <GoSidebarCollapse size={20} />
+                    <label htmlFor="my-drawer-4" aria-label="open sidebar" className="btn btn-square btn-ghost"
+                        onClick={() => setCollapsed(!collapsed)}
+                    >
+                        {collapsed ? <GoSidebarExpand size={20} /> : <GoSidebarCollapse size={20} />}
                     </label>
                     <div className="px-4 text-2xl font-semibold">Dashboard</div>
                 </nav>
@@ -63,14 +66,31 @@ const dashboardLayout = () => {
                             </li>
                             <li className='mt-2'>
                                 <NavLink to='/dashboard/track-parcel'
-                                    className="flex items-center is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Track a Parcel"
+                                    className="flex items-center -left-1 is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Track a Parcel"
                                 >
                                     <img className='w-6' src={trackingIcon} alt="Tracking Icon" />
                                     <span className="is-drawer-close:hidden">Track a Parcel</span>
                                 </NavLink>
                             </li>
 
-                            {/* Admin links */}
+                            {/* Rider Links */}
+                            {!roleLoading && role === 'rider' &&
+                                <>
+                                    <li className="mt-2">
+                                        <NavLink
+                                            to="/dashboard/rider-tasks"
+                                            className="flex items-center is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                                            data-tip="Pending Deliveries"
+                                        >
+                                            <FiTruck size={20} />
+                                            <span className="is-drawer-close:hidden">My Deliveries</span>
+                                        </NavLink>
+                                    </li>
+                                </>
+                            }
+
+
+                            {/* Admin Links */}
                             {!roleLoading && role === 'admin' &&
                                 <>
                                     <li className="mt-2">
@@ -79,7 +99,7 @@ const dashboardLayout = () => {
                                             className="flex items-center is-drawer-close:tooltip is-drawer-close:tooltip-right"
                                             data-tip="Active Riders"
                                         >
-                                            <FaUserCheck size={20} />
+                                            <FiUserCheck size={20} />
                                             <span className="is-drawer-close:hidden">Active Riders</span>
                                         </NavLink>
                                     </li>
@@ -90,7 +110,7 @@ const dashboardLayout = () => {
                                             className="flex items-center is-drawer-close:tooltip is-drawer-close:tooltip-right"
                                             data-tip="Assign Rider"
                                         >
-                                            <FaUserPlus size={20} />
+                                            <FiUserPlus size={20} />
                                             <span className="is-drawer-close:hidden">Assign Rider</span>
                                         </NavLink>
                                     </li>
@@ -98,20 +118,20 @@ const dashboardLayout = () => {
                                     <li className="mt-2">
                                         <NavLink
                                             to="/dashboard/pending-riders"
-                                            className="flex items-center is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                                            className="flex items-center -left-1 is-drawer-close:tooltip is-drawer-close:tooltip-right"
                                             data-tip="Pending Riders"
                                         >
-                                            <FaUserClock size={20} />
+                                            <LiaUserClockSolid size={22} />
                                             <span className="is-drawer-close:hidden">Pending Riders</span>
                                         </NavLink>
                                     </li>
                                     <li className="mt-2">
                                         <NavLink
                                             to="/dashboard/make-admin"
-                                            className="flex items-center is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                                            className="flex items-center -left-1 is-drawer-close:tooltip is-drawer-close:tooltip-right"
                                             data-tip="Make Admin"
                                         >
-                                            <FaUserShield size={20} />
+                                            <LiaUserShieldSolid size={22} />
                                             <span className="is-drawer-close:hidden">Make Admin</span>
                                         </NavLink>
                                     </li>
