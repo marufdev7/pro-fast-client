@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { GoSidebarCollapse, GoSidebarExpand } from 'react-icons/go';
 import { Link, NavLink, Outlet } from 'react-router';
 import ProFastLogo from '../components/ProFastLogo/ProFastLogo';
-import { FiBox, FiCreditCard, FiTruck, FiUser, FiUserCheck, FiUserPlus } from "react-icons/fi";
+import { FiBox, FiCreditCard, FiTruck, FiUser, FiUserCheck, FiUserPlus, FiCheckCircle } from "react-icons/fi";
 import { IoHomeOutline, IoSettingsOutline } from 'react-icons/io5';
 import { LiaUserClockSolid, LiaUserShieldSolid } from "react-icons/lia";
 import trackingIcon from '../assets/tracking.png';
@@ -84,6 +84,17 @@ const dashboardLayout = () => {
                                         >
                                             <FiTruck size={20} />
                                             <span className="is-drawer-close:hidden">My Deliveries</span>
+                                        </NavLink>
+                                    </li>
+
+                                    <li className="mt-2">
+                                        <NavLink
+                                            to="/dashboard/completed-deliveries"
+                                            className="flex items-center is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                                            data-tip="Delivered Parcels"
+                                        >
+                                            <FiCheckCircle size={20} />
+                                            <span className="is-drawer-close:hidden">Completed Deliveries</span>
                                         </NavLink>
                                     </li>
                                 </>
