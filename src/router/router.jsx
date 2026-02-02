@@ -20,7 +20,7 @@ import Forbidden from "../pages/Forbidden/Forbidden";
 import AdminRoute from "../routes/AdminRoute";
 import AssignRider from "../pages/Dashboard/AssignRider/AssignRider";
 import RiderRoute from "../routes/RiderRoute";
-import AcceptedParcels from "../pages/Dashboard/AcceptedParcels/AcceptedParcel";
+import AcceptedParcels from "../pages/Dashboard/AcceptedParcels/AcceptedParcels";
 
 export const router = createBrowserRouter([
     {

@@ -4,7 +4,7 @@ import useAuth from '../hooks/useAuth';
 import useUserRole from '../hooks/useUserRole';
 import { Navigate } from 'react-router';
 
-const RiderRoute = (children) => {
+const RiderRoute = ({ children }) => {
     const { user, loading } = useAuth();
     const { role, roleLoading } = useUserRole();
 
