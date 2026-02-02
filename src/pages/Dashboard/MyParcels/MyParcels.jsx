@@ -89,82 +89,81 @@ const MyParcels = () => {
         }
     };
 
-    if (parcels.length === 0) {
-        return (
-            <div className="bg-white h-screen rounded-xl p-10 text-center text-gray-500">
-                You have no parcels yet.
-            </div>
-        );
-    }
-
     return (
-        <div className="overflow-x-auto bg-white rounded-xl shadow">
-            <table className="table table-zebra min-w-[640px]">
-                <thead className="bg-base-200 text-xs md:text-sm">
-                    <tr>
-                        <th></th>
-                        <th>Type</th>
-                        <th>Name</th>
-                        <th>Cost</th>
-                        <th>Payment Status</th>
-                        <th>Created At</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    {sortedParcels.map((parcel, index) => (
-                        <tr key={parcel._id} className="text-xs md:text-sm">
-                            <td>{index + 1}</td>
-
-                            <td>
-                                <span className={`badge ${typeColor(parcel.type)} text-[10px] md:text-sm`}>
-                                    {parcel.type === "document" ? "Document" : "Non-Document"}
-                                </span>
-                            </td>
-
-                            <td className="font-semibold">{parcel.title}</td>
-
-                            <td className="font-semibold">৳ {parcel.cost}</td>
-
-                            <td>
-                                <span className={`badge ${paymentBadge(parcel.payment_status)} text-sm md:text-[14px]`}>
-                                    {parcel.payment_status}
-                                </span>
-                            </td>
-
-                            <td className="text-gray-600">{parcel.creation_date}</td>
-
-                            <td>
-                                <div className="flex flex-wrap gap-2">
-                                    <button
-                                        onClick={() => handleView(parcel)}
-                                        className="btn btn-xs btn-outline"
-                                    >
-                                        <FaEye /> View
-                                    </button>
-
-                                    {parcel.payment_status === "pending" && (
-                                        <button
-                                            onClick={() => handlePay(parcel._id)}
-                                            className="btn btn-xs text-green-600/90 hover:text-green-600 btn-outline"
-                                        >
-                                            <FaMoneyBillWave /> Pay
-                                        </button>
-                                    )}
-
-                                    <button
-                                        onClick={() => handleDelete(parcel._id)}
-                                        className="btn btn-xs text-rose-600/90 hover:text-red-600 btn-outline"
-                                    >
-                                        <FaTrash /> Delete
-                                    </button>
-                                </div>
-                            </td>
+        <div className="overflow-x-auto bg-white p-4 rounded-xl shadow min-h-screen">
+            <h2 className="text-2xl font-bold mb-4">My Parcels</h2>
+            {parcels.length === 0 ? (
+                <p className="text-center text-xl font-bold text-gray-500">
+                    No parcels available for assignment.
+                </p>
+            ) : (
+                <table className="table table-zebra min-w-[640px]">
+                    <thead className="bg-base-200 text-xs md:text-sm">
+                        <tr>
+                            <th></th>
+                            <th>Type</th>
+                            <th>Name</th>
+                            <th>Cost</th>
+                            <th>Payment Status</th>
+                            <th>Created At</th>
+                            <th>Actions</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+
+                    <tbody>
+                        {sortedParcels.map((parcel, index) => (
+                            <tr key={parcel._id} className="text-xs md:text-sm">
+                                <td>{index + 1}</td>
+
+                                <td>
+                                    <span className={`badge ${typeColor(parcel.type)} text-[10px] md:text-sm`}>
+                                        {parcel.type === "document" ? "Document" : "Non-Document"}
+                                    </span>
+                                </td>
+
+                                <td className="font-semibold">{parcel.title}</td>
+
+                                <td className="font-semibold">৳ {parcel.cost}</td>
+
+                                <td>
+                                    <span className={`badge ${paymentBadge(parcel.payment_status)} text-sm md:text-[14px]`}>
+                                        {parcel.payment_status}
+                                    </span>
+                                </td>
+
+                                <td className="text-gray-600">{parcel.creation_date}</td>
+
+                                <td>
+                                    <div className="flex flex-wrap gap-2">
+                                        <button
+                                            onClick={() => handleView(parcel)}
+                                            className="btn btn-xs btn-outline"
+                                        >
+                                            <FaEye /> View
+                                        </button>
+
+                                        {parcel.payment_status === "pending" && (
+                                            <button
+                                                onClick={() => handlePay(parcel._id)}
+                                                className="btn btn-xs text-green-600/90 hover:text-green-600 btn-outline"
+                                            >
+                                                <FaMoneyBillWave /> Pay
+                                            </button>
+                                        )}
+
+                                        <button
+                                            onClick={() => handleDelete(parcel._id)}
+                                            className="btn btn-xs text-rose-600/90 hover:text-red-600 btn-outline"
+                                        >
+                                            <FaTrash /> Delete
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            )}
         </div>
     );
 };

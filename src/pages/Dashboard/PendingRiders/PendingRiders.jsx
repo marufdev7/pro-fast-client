@@ -42,80 +42,87 @@ const PendingRiders = () => {
 
     return (
         <>
-            <div className="overflow-x-auto bg-white rounded-xl shadow-sm">
-                <table className="table table-md">
-                    <thead className="bg-gray-50 text-gray-600">
-                        <tr>
-                            <th></th>
-                            <th>Name</th>
-                            <th className="hidden md:table-cell">Region</th>
-                            <th>Status</th>
-                            <th className="hidden lg:table-cell">Applied</th>
-                            <th className="text-center">Actions</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        {riders.map((rider, index) => (
-                            <tr key={rider._id} className="hover">
-                                <td>{index + 1}</td>
-
-                                <td>
-                                    <p className="font-semibold">{rider.name}</p>
-                                    <p className="text-xs text-gray-500">{rider.email}</p>
-                                </td>
-
-                                <td className="hidden md:table-cell">{rider.region}</td>
-
-                                <td>
-                                    <span
-                                        className={`badge badge-outline ${rider.status === "pending"
-                                            ? "badge-warning"
-                                            : rider.status === "approved"
-                                                ? "badge-success"
-                                                : "badge-error"
-                                            }`}
-                                    >
-                                        {rider.status}
-                                    </span>
-                                </td>
-
-                                <td className="hidden lg:table-cell text-sm text-gray-500">
-                                    {rider.application_date}
-                                </td>
-
-                                <td>
-                                    <div className="flex justify-center gap-2">
-                                        <button
-                                            onClick={() => setSelectedRider(rider)}
-                                            className="btn btn-xs btn-outline"
-                                        >
-                                            <FaEye /> View
-                                        </button>
-
-                                        {rider.status === "pending" && (
-                                            <>
-                                                <button
-                                                    onClick={() => updateStatus(rider, "active", rider.email)}
-                                                    className="btn btn-xs bg-emerald-600 text-white"
-                                                >
-                                                    <FaCheck /> Approve
-                                                </button>
-
-                                                <button
-                                                    onClick={() => updateStatus(rider, "rejected", rider.email)}
-                                                    className="btn btn-xs bg-rose-600 text-white"
-                                                >
-                                                    <FaTimes /> Reject
-                                                </button>
-                                            </>
-                                        )}
-                                    </div>
-                                </td>
+            <div className="overflow-x-auto bg-white rounded-xl shadow min-h-screen p-4">
+                <h2 className="text-2xl font-bold mb-4">Pending Riders</h2>
+                {riders.length === 0 ? (
+                    <p className="text-center text-xl font-bold text-gray-500">
+                        No active deliveries
+                    </p>
+                ) : (
+                    <table className="table table-md">
+                        <thead className="bg-gray-50 text-gray-600">
+                            <tr>
+                                <th></th>
+                                <th>Name</th>
+                                <th className="hidden md:table-cell">Region</th>
+                                <th>Status</th>
+                                <th className="hidden lg:table-cell">Applied</th>
+                                <th className="text-center">Actions</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+
+                        <tbody>
+                            {riders.map((rider, index) => (
+                                <tr key={rider._id} className="hover">
+                                    <td>{index + 1}</td>
+
+                                    <td>
+                                        <p className="font-semibold">{rider.name}</p>
+                                        <p className="text-xs text-gray-500">{rider.email}</p>
+                                    </td>
+
+                                    <td className="hidden md:table-cell">{rider.region}</td>
+
+                                    <td>
+                                        <span
+                                            className={`badge badge-outline ${rider.status === "pending"
+                                                ? "badge-warning"
+                                                : rider.status === "approved"
+                                                    ? "badge-success"
+                                                    : "badge-error"
+                                                }`}
+                                        >
+                                            {rider.status}
+                                        </span>
+                                    </td>
+
+                                    <td className="hidden lg:table-cell text-sm text-gray-500">
+                                        {rider.application_date}
+                                    </td>
+
+                                    <td>
+                                        <div className="flex justify-center gap-2">
+                                            <button
+                                                onClick={() => setSelectedRider(rider)}
+                                                className="btn btn-xs btn-outline"
+                                            >
+                                                <FaEye /> View
+                                            </button>
+
+                                            {rider.status === "pending" && (
+                                                <>
+                                                    <button
+                                                        onClick={() => updateStatus(rider, "active", rider.email)}
+                                                        className="btn btn-xs bg-emerald-600 text-white"
+                                                    >
+                                                        <FaCheck /> Approve
+                                                    </button>
+
+                                                    <button
+                                                        onClick={() => updateStatus(rider, "rejected", rider.email)}
+                                                        className="btn btn-xs bg-rose-600 text-white"
+                                                    >
+                                                        <FaTimes /> Reject
+                                                    </button>
+                                                </>
+                                            )}
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                )}
             </div>
 
             {/* Rider Details Modal */}

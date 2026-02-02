@@ -53,8 +53,8 @@ const MakeAdmin = () => {
     };
 
     return (
-        <div className="bg-white min-h-screen rounded-xl p-6">
-            <h2 className="text-xl font-bold mb-4">Make Admin</h2>
+        <div className="bg-white min-h-screen shadow rounded-xl p-6">
+            <h2 className="text-2xl font-bold mb-4">Make Admin</h2>
 
             {/* Search box */}
             <div className="flex gap-2 mb-6 max-w-md">
@@ -82,7 +82,7 @@ const MakeAdmin = () => {
             {isFetching && <Loading />}
 
             {users.length === 0 && !isFetching && (
-                <p className="text-gray-500">No user found</p>
+                <p className="text-gray-500 font-bold text-xl text-center">No user found</p>
             )}
 
             {users.length > 0 && (

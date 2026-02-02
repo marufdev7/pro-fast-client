@@ -23,7 +23,6 @@ const Register = () => {
     const from = location.state?.from || "/";
 
     const onSubmit = data => {
-        console.log(data);
         createUser(data.email, data.password)
             .then(async (result) => {
                 console.log("User Created Successfully:");

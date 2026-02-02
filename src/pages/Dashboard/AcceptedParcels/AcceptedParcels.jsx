@@ -70,64 +70,61 @@ const AcceptedParcels = () => {
     }
 
     return (
-        <div className="p-4">
-            <h2 className="text-xl font-semibold mb-4">My Deliveries</h2>
-
-            <div className="overflow-x-auto">
-                <table className="table table-zebra">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Tracking ID</th>
-                            <th>Receiver</th>
-                            <th>Address</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        {parcels.map((parcel, index) => (
-                            <tr key={parcel._id}>
-                                <td>{index + 1}</td>
-                                <td>{parcel.tracking_id}</td>
-                                <td>{parcel.receiverName}</td>
-                                <td>{parcel.receiverAddress}</td>
-                                <td className="capitalize">{parcel.parcel_status}</td>
-                                <td>
-                                    {parcel.parcel_status === "rider-assigned" && (
-                                        <button
-                                            className="btn btn-sm btn-warning"
-                                            onClick={() => handlePickup(parcel._id)}
-                                            disabled={pickupMutation.isPending}
-                                        >
-                                            Picked Up
-                                        </button>
-                                    )}
-
-                                    {parcel.parcel_status === "in_transit" && (
-                                        <button
-                                            className="btn btn-sm btn-success"
-                                            onClick={() => handleDeliver(parcel._id)}
-                                            disabled={deliverMutation.isPending}
-                                        >
-                                            Delivered
-                                        </button>
-                                    )}
-                                </td>
-                            </tr>
-                        ))}
-
-                        {parcels.length === 0 && (
+        <div className="bg-white rounded-xl shadow min-h-screen p-4">
+            <h2 className="text-2xl font-semibold mb-4">My Deliveries</h2>
+            {parcels.length === 0 ? (
+                <p className="text-center text-xl font-bold text-gray-500">
+                    No active deliveries
+                </p>
+            ) : (
+                <div className="overflow-x-auto">
+                    <table className="table table-zebra">
+                        <thead>
                             <tr>
-                                <td colSpan="6" className="text-center">
-                                    No active deliveries
-                                </td>
+                                <th></th>
+                                <th>Tracking ID</th>
+                                <th>Receiver</th>
+                                <th>Address</th>
+                                <th>Status</th>
+                                <th>Action</th>
                             </tr>
-                        )}
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+
+                        <tbody>
+                            {parcels.map((parcel, index) => (
+                                <tr key={parcel._id}>
+                                    <td>{index + 1}</td>
+                                    <td>{parcel.tracking_id}</td>
+                                    <td>{parcel.receiverName}</td>
+                                    <td>{parcel.receiverAddress}</td>
+                                    <td className="capitalize">{parcel.parcel_status}</td>
+                                    <td>
+                                        {parcel.parcel_status === "rider-assigned" && (
+                                            <button
+                                                className="btn btn-sm btn-warning"
+                                                onClick={() => handlePickup(parcel._id)}
+                                                disabled={pickupMutation.isPending}
+                                            >
+                                                Picked Up
+                                            </button>
+                                        )}
+
+                                        {parcel.parcel_status === "in-transit" && (
+                                            <button
+                                                className="btn btn-sm btn-success"
+                                                onClick={() => handleDeliver(parcel._id)}
+                                                disabled={deliverMutation.isPending}
+                                            >
+                                                Delivered
+                                            </button>
+                                        )}
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            )}
         </div>
     );
 };

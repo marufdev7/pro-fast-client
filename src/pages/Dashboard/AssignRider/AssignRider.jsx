@@ -71,11 +71,11 @@ const AssignRider = () => {
     if (isPending) return <Loading />;
 
     return (
-        <div className="bg-white rounded-xl p-6">
-            <h2 className="text-xl font-bold mb-4">Assign Rider</h2>
+        <div className="bg-white rounded-xl shadow min-h-screen p-4">
+            <h2 className="text-2xl font-bold mb-4">Assign Rider</h2>
 
             {parcels.length === 0 ? (
-                <p className="text-gray-500">
+                <p className="text-gray-500 text-center text-xl font-bold">
                     No parcels available for assignment.
                 </p>
             ) : (
@@ -165,7 +165,7 @@ const AssignRider = () => {
                         {ridersLoading ? (
                             <Loading />
                         ) : riders.length === 0 ? (
-                            <p className="text-sm text-red-500">
+                            <p className="text-red-500">
                                 No riders found for this Warehouse.
                             </p>
                         ) : (

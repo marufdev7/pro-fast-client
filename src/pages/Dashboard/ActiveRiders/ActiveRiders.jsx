@@ -48,9 +48,9 @@ const ActiveRiders = () => {
     };
 
     return (
-        <div className="p-4">
+        <div className="p-4 bg-white rounded-xl min-h-screen shadow">
             <div className="flex flex-col md:flex-row justify-between gap-3 mb-4">
-                <h2 className="text-lg font-semibold">Active Riders</h2>
+                <h2 className="text-2xl font-semibold">Active Riders</h2>
 
                 <input
                     type="text"
@@ -62,7 +62,7 @@ const ActiveRiders = () => {
             </div>
 
             {filteredRiders.length === 0 ? (
-                <p className="text-center text-gray-500 mt-10">
+                <p className="text-center text-xl font-bold text-gray-500 mt-10">
                     No active riders found.
                 </p>
             ) : (
