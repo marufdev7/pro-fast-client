@@ -32,7 +32,7 @@ const AssignRider = () => {
             return res.data;
         },
     });
-    // console.log("Selected Parcel:", selectedParcel);
+    // console.log("Selected Parcel: tracking id", selectedParcel?.tracking_id);
     // console.log("Riders Data:", riders);
 
     const assignRiderMutation = useMutation({
@@ -41,6 +41,7 @@ const AssignRider = () => {
                 parcelId,
                 riderId: rider._id,
                 riderName: rider.name,
+                tracking_id: selectedParcel.tracking_id
             });
         },
         onSuccess: () => {

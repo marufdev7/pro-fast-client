@@ -9,37 +9,44 @@ const AcceptedParcels = () => {
     const axiosSecure = useAxiosSecure();
     const queryClient = useQueryClient();
 
-    const { data: parcels = [], isLoading } = useQuery({
+    const { data: parcels = [], isLoading, error, isError } = useQuery({
         queryKey: ["rider-parcels", user?.email],
         enabled: !!user?.email,
         queryFn: async () => {
             const res = await axiosSecure.get(
-                `/riders/parcels?email=${user.email}`
+                `/riders/parcels?email=${user?.email}`
             );
             return res.data;
         },
     });
 
+    if (isError) console.log(error);
+
+    // console.log(parcels);
 
     // Pickup mutation
     const pickupMutation = useMutation({
-        mutationFn: (id) => axiosSecure.patch(`/parcels/${id}/pickup`),
+        mutationFn: ({ id, tracking_id }) =>
+            axiosSecure.patch(`/parcels/${id}/pickup`, { tracking_id }),
+
         onSuccess: () => {
-            queryClient.invalidateQueries(["rider-parcels"]);
+            queryClient.invalidateQueries({ queryKey: ["rider-parcels"] });
             Swal.fire("Picked up", "Parcel is now in transit", "success");
         },
     });
 
     // Deliver mutation
     const deliverMutation = useMutation({
-        mutationFn: (id) => axiosSecure.patch(`/parcels/${id}/deliver`),
+        mutationFn: ({ id, tracking_id }) =>
+            axiosSecure.patch(`/parcels/${id}/deliver`, { tracking_id }),
         onSuccess: () => {
             queryClient.invalidateQueries(["rider-parcels"]);
             Swal.fire("Delivered", "Parcel delivered successfully", "success");
         },
     });
 
-    const handlePickup = (id) => {
+
+    const handlePickup = (id, tracking_id) => {
         Swal.fire({
             title: "Confirm pickup?",
             text: "This parcel will be marked as in transit.",
@@ -47,12 +54,12 @@ const AcceptedParcels = () => {
             showCancelButton: true,
         }).then((result) => {
             if (result.isConfirmed) {
-                pickupMutation.mutate(id);
+                pickupMutation.mutate({ id, tracking_id });
             }
         });
     };
 
-    const handleDeliver = (id) => {
+    const handleDeliver = (id, tracking_id) => {
         Swal.fire({
             title: "Confirm delivery?",
             text: "This action cannot be undone.",
@@ -60,7 +67,7 @@ const AcceptedParcels = () => {
             showCancelButton: true,
         }).then((result) => {
             if (result.isConfirmed) {
-                deliverMutation.mutate(id);
+                deliverMutation.mutate({ id, tracking_id });
             }
         });
     };
@@ -102,7 +109,7 @@ const AcceptedParcels = () => {
                                         {parcel.parcel_status === "rider-assigned" && (
                                             <button
                                                 className="btn btn-sm btn-warning"
-                                                onClick={() => handlePickup(parcel._id)}
+                                                onClick={() => handlePickup(parcel._id, parcel.tracking_id)}
                                                 disabled={pickupMutation.isPending}
                                             >
                                                 Picked Up
@@ -112,7 +119,7 @@ const AcceptedParcels = () => {
                                         {parcel.parcel_status === "in-transit" && (
                                             <button
                                                 className="btn btn-sm btn-success"
-                                                onClick={() => handleDeliver(parcel._id)}
+                                                onClick={() => handleDeliver(parcel._id, parcel.tracking_id)}
                                                 disabled={deliverMutation.isPending}
                                             >
                                                 Delivered

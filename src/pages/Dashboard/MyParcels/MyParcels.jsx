@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { FaEye, FaTrash, FaMoneyBillWave } from "react-icons/fa";
@@ -11,6 +11,7 @@ const MyParcels = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
     const navigate = useNavigate();
+    const [selectedParcel, setSelectedParcel] = useState(null);
 
     const { data: parcels = [], refetch } = useQuery({
         queryKey: ['my-parcels', user?.email],
@@ -41,8 +42,7 @@ const MyParcels = () => {
 
 
     const handleView = (parcel) => {
-        console.log("View parcel:", parcel);
-        // TODO: open modal or navigate to detail page
+        setSelectedParcel(parcel);
     };
 
     const handlePay = (id) => {
@@ -51,7 +51,7 @@ const MyParcels = () => {
     };
 
     const handleDelete = async (id) => {
-        console.log("Delete parcel:", id);
+        // console.log("Delete parcel:", id);
         const result = await Swal.fire({
             title: "Delete parcel?",
             text: "This action cannot be undone.",
@@ -67,7 +67,7 @@ const MyParcels = () => {
         try {
             axiosSecure.delete(`/parcels/${id}`)
                 .then(res => {
-                    console.log(res.data);
+                    // console.log(res.data);
                     if (res.data.deletedCount) {
                         Swal.fire({
                             title: "Deleted",
@@ -163,6 +163,28 @@ const MyParcels = () => {
                         ))}
                     </tbody>
                 </table>
+            )}
+
+            {selectedParcel && (
+                <dialog open className="modal">
+                    <div className="modal-box max-w-xl">
+                        <h3 className="text-lg font-bold mb-4">Parcel Details</h3>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                            <p><b>Name:</b> {selectedParcel.title}</p>
+                            <p><b>Type:</b> {selectedParcel.type === "document" ? "Document" : "Non-Document"}</p>
+                            <p><b>Cost:</b> ৳ {selectedParcel.cost}</p>
+                            <p><b>Payment Status:</b> {selectedParcel.payment_status}</p>
+                            <p><b>Parcel Status:</b> {selectedParcel.parcel_status}</p>
+                            <p><b>Tracking ID:</b> {selectedParcel.tracking_id}</p>
+                            <p className="sm:col-span-2"><b>Booking Time:</b> {selectedParcel.creation_date}</p>
+                        </div>
+                        <div className="modal-action">
+                            <button className="btn btn-outline" onClick={() => setSelectedParcel(null)}>
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </dialog>
             )}
         </div>
     );
