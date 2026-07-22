@@ -64,14 +64,14 @@ const dashboardLayout = () => {
                                     <span className="is-drawer-close:hidden">Payment History</span>
                                 </NavLink>
                             </li>
-                            <li className='mt-2'>
-                                <NavLink to='/dashboard/track-parcel'
+                            {/* <li className='mt-2'>
+                                <NavLink to={`/dashboard/track-parcel`}
                                     className="flex items-center -ml-1 is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Track a Parcel"
                                 >
                                     <img className='w-6' src={trackingIcon} alt="Tracking Icon" />
-                                    <span className="is-drawer-close:hidden">Track a Parcel</span>
+                                    <span className="is-drawer-close:hidden">Track Your Parcel</span>
                                 </NavLink>
-                            </li>
+                            </li> */}
 
                             {/* Rider Links */}
                             {!roleLoading && role === 'rider' &&

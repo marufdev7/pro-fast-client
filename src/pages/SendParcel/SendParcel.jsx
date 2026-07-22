@@ -130,7 +130,7 @@ const SendParcel = () => {
                 cost: total,
                 created_by: user?.email || "guest",
                 payment_status: "pending",
-                parcel_status: "pending",
+                parcel_status: "parcel-created",
                 creation_date: new Date().toLocaleString(),
                 tracking_id: generateTrackingId(),
             };

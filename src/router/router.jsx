@@ -84,7 +84,7 @@ export const router = createBrowserRouter([
                 Component: PaymentHistory
             },
             {
-                path: 'track-parcel',
+                path: 'track-parcel/:tracking_id',
                 Component: TrackParcel
             },
 

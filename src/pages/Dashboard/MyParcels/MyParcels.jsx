@@ -4,7 +4,7 @@ import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { FaEye, FaTrash, FaMoneyBillWave } from "react-icons/fa";
 import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 
 const MyParcels = () => {
 
@@ -132,6 +132,11 @@ const MyParcels = () => {
                                 </td>
 
                                 <td className="text-gray-600">{parcel.creation_date}</td>
+
+                                <td className="font-semibold">
+                                    {/* {parcel.tracking_id} */}
+                                    <Link to={`/dashboard/track-parcel/${parcel.tracking_id}`} className="text-blue-600 hover:underline"> Track this Parcel</Link>
+                                </td>
 
                                 <td>
                                     <div className="flex flex-wrap gap-2">
