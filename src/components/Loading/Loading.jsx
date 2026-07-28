@@ -1,15 +1,11 @@
 import React from 'react';
+import loadingSvg from '../../assets/loading.svg';
 
 const Loading = () => {
     return (
         <div className="flex items-center justify-center min-h-screen bg-white">
-            <div className="flex flex-col items-center gap-3 bg-gray-50 border border-gray-200 rounded-xl p-6 shadow-sm">
-                <div className="w-10 h-10 border-4 border-lime-400 border-t-transparent rounded-full animate-spin">
-                </div>
-
-                <p className="text-sm text-emerald-700 font-medium">
-                    Loading, please wait...
-                </p>
+            <div className="flex flex-col items-center justify-center">
+                <img src={loadingSvg} alt="Loading" className='h-64 w-64' />
             </div>
         </div>
     );
