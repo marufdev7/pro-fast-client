@@ -17,9 +17,17 @@ const Navbar = () => {
 
     const navItems = <>
         <li><NavLink to={'/'}>Home</NavLink></li>
-        <li><NavLink to={'/send-parcel'}>Send Parcel</NavLink></li>
+        <li><NavLink to={'/send-parcels'}>Send Parcel</NavLink></li>
         {
-            user && <li><NavLink to={'/dashboard'}>Dashboard</NavLink></li>
+            user &&
+            <>
+                <li>
+                    <NavLink to={'/dashboard/my-parcels'}>My Parcel</NavLink>
+                </li>
+                <li>
+                    <NavLink to={'/dashboard'}>Dashboard</NavLink>
+                </li>
+            </>
         }
         <li><NavLink to={'/be-a-rider'}>Be a Rider</NavLink></li>
         <li><NavLink to={'/coverage'}>Coverage</NavLink></li>

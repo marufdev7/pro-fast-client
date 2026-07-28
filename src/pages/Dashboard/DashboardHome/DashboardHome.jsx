@@ -1,11 +1,30 @@
 import React from 'react';
+import useUserRole from '../../../hooks/useUserRole';
+import Loading from '../../../components/Loading/Loading';
+import AdminDashboardHome from './AdminDashboardHome';
+import RiderDashboardHome from './RiderDashboardHome';
+import UserDashboardHome from './UserDashboardHome';
+
 
 const DashboardHome = () => {
-    return (
-        <div>
-            <h1 className="text-4xl font-bold">Welcome to the Dashboard</h1>
-        </div>
-    );
+    const { role, roleLoading } = useUserRole();
+    console.log(role, roleLoading);
+
+    if (roleLoading) {
+        {
+            return <Loading />;
+        }
+    };
+
+    if (role === 'admin') {
+        return <AdminDashboardHome />;
+    }
+    else if (role === 'rider') {
+        return <RiderDashboardHome />;
+    }
+    else {
+        return <UserDashboardHome />;
+    }
 };
 
 export default DashboardHome;
