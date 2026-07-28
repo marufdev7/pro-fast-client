@@ -20,22 +20,22 @@ const Navbar = () => {
     }
 
     const navItems = <>
-        <li><NavLink className="text-[#03464D]" to={'/'}>Home</NavLink></li>
-        <li><NavLink className="text-[#03464D]" to={'/send-parcel'}>Send Parcel</NavLink></li>
+        <li><NavLink to={'/'}>Home</NavLink></li>
+        <li><NavLink to={'/send-parcel'}>Send Parcel</NavLink></li>
         {
             user &&
             <>
                 <li>
-                    <NavLink className="text-[#03464D]" to={'/dashboard/my-parcels'}>My Parcel</NavLink>
+                    <NavLink to={'/dashboard/my-parcels'}>My Parcel</NavLink>
                 </li>
                 <li>
-                    <NavLink className="text-[#03464D]" to={'/dashboard'}>Dashboard</NavLink>
+                    <NavLink to={'/dashboard'}>Dashboard</NavLink>
                 </li>
             </>
         }
-        <li><NavLink className="text-[#03464D]" to={'/be-a-rider'}>Be a Rider</NavLink></li>
-        <li><NavLink className="text-[#03464D]" to={'/coverage'}>Coverage</NavLink></li>
-        <li><NavLink className="text-[#03464D]" to={'/about'}>About Us</NavLink></li>
+        <li><NavLink to={'/be-a-rider'}>Be a Rider</NavLink></li>
+        <li><NavLink to={'/coverage'}>Coverage</NavLink></li>
+        <li><NavLink to={'/about'}>About Us</NavLink></li>
     </>
     return (
         <div className="navbar bg-white shadow-sm pt-4 pb-4 pl-5 pr-5 rounded-xl">
@@ -46,7 +46,7 @@ const Navbar = () => {
                     </div>
                     <ul
                         tabIndex="-1"
-                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 font-semibold text-[#03464D] shadow">
                         {navItems}
                     </ul>
                 </div>
@@ -55,7 +55,7 @@ const Navbar = () => {
                 </div>
             </div>
             <div className="navbar-center hidden lg:flex">
-                <ul className="menu menu-horizontal px-1">
+                <ul className="menu menu-horizontal px-1 font-semibold text-[#03464D]">
                     {navItems}
                 </ul>
             </div>
