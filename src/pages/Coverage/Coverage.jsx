@@ -9,7 +9,7 @@ const Coverage = () => {
     const inputRef = useRef(null);
     return (
         <section className="md:p-12 p-6 mt-8 mb-16 rounded-3xl bg-white">
-            <h1 className="text-3xl font-bold mb-6">
+            <h1 className="text-3xl font-bold mb-6 text-[#03464D]">
                 We are available in 64 districts
             </h1>
 
@@ -44,7 +44,7 @@ const Coverage = () => {
 
                 <button
                     onClick={() => setSearch(inputRef.current.value)}
-                    className="absolute right-0.5 top-1/2 -translate-y-1/2 bg-[#CAEB66] hover:bg-[#B8D94E] text-black font-bold px-5 py-2 rounded-3xl cursor-pointer text-sm"
+                    className="absolute right-0.5 top-1/2 -translate-y-1/2 bg-[#CAEB66] hover:bg-[#B8D94E] font-bold px-5 py-2 rounded-3xl cursor-pointer text-sm text-[#03464D]"
                 >
                     Search
                 </button>

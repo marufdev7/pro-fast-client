@@ -26,7 +26,7 @@ const dashboardLayout = () => {
                     >
                         {collapsed ? <GoSidebarExpand size={20} /> : <GoSidebarCollapse size={20} />}
                     </label>
-                    <div className="px-4 text-2xl font-semibold">Dashboard</div>
+                    <div className="px-4 text-2xl font-semibold text-[#03464D]">Dashboard</div>
                 </nav>
                 {/* Page content here */}
                 <div className="bg-gray-50 min-h-screen">
@@ -34,7 +34,7 @@ const dashboardLayout = () => {
                 </div>
             </div>
 
-            <div className="drawer-side is-drawer-close:overflow-visible">
+            <div className="drawer-side is-drawer-close:overflow-visible text-[#03464D]">
                 <label htmlFor="my-drawer-4" aria-label="close sidebar" className="drawer-overlay"></label>
                 <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-open:w-64 is-drawer-close:w-20">
                     {/* Sidebar content here */}

@@ -44,7 +44,7 @@ const CompletedDeliveries = () => {
 
     return (
         <div className="p-4">
-            <h2 className="text-xl font-bold mb-4">Completed Deliveries</h2>
+            <h2 className="text-xl font-bold mb-4 text-[#03464D]">Completed Deliveries</h2>
 
             <div className="mb-4 flex justify-between items-center">
                 <p className="font-semibold">

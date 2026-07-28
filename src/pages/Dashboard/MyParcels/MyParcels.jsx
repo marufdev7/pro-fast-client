@@ -91,7 +91,7 @@ const MyParcels = () => {
 
     return (
         <div className="overflow-x-auto bg-white p-4 rounded-xl shadow min-h-screen">
-            <h2 className="text-2xl font-bold mb-4">My Parcels</h2>
+            <h2 className="text-2xl font-bold mb-4 text-[#03464D]">My Parcels</h2>
             {parcels.length === 0 ? (
                 <p className="text-center text-xl font-bold text-gray-500">
                     No parcels available for assignment.

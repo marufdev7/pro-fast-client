@@ -54,7 +54,7 @@ const MakeAdmin = () => {
 
     return (
         <div className="bg-white min-h-screen shadow rounded-xl p-6">
-            <h2 className="text-2xl font-bold mb-4">Make Admin</h2>
+            <h2 className="text-2xl font-bold mb-4 text-[#03464D]">Make Admin</h2>
 
             {/* Search box */}
             <div className="flex gap-2 mb-6 max-w-md">

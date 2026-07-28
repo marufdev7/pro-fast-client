@@ -22,7 +22,7 @@ const PaymentHistory = () => {
 
     return (
         <div className="overflow-x-auto bg-white rounded-xl p-4 shadow min-h-screen">
-            <h2 className="text-2xl font-semibold mb-4">My Payment History</h2>
+            <h2 className="text-2xl font-semibold mb-4 text-[#03464D]">My Payment History</h2>
             {payments.length === 0 ? (
                 <p className="text-center text-xl font-bold text-gray-500">
                     No active deliveries

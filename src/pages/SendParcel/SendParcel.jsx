@@ -171,7 +171,7 @@ const SendParcel = () => {
             <div className="bg-white rounded-2xl p-8 shadow-sm">
                 {/* Title */}
                 <div className="mb-6">
-                    <h1 className="text-3xl font-bold text-emerald-800">Send Parcel</h1>
+                    <h1 className="text-3xl font-bold text-[#03464D] ">Send Parcel</h1>
                     <hr className="my-4 border-gray-200" />
                     <p className="text-md text-emerald-900 font-semibold">
                         Enter your parcel details
@@ -469,7 +469,7 @@ const SendParcel = () => {
                         <p className="text-sm text-gray-600">* PickUp Time 4pm-7pm Approx.</p>
                         <button
                             type="submit"
-                            className="bg-lime-400 hover:bg-lime-500 text-emerald-900 font-semibold px-5 py-3 rounded-md"
+                            className="bg-lime-400 hover:bg-lime-500 text-[#03464D] font-semibold px-5 py-3 rounded-md"
                         >
                             Proceed to Confirm Booking
                         </button>

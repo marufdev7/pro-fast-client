@@ -43,7 +43,7 @@ const PendingRiders = () => {
     return (
         <>
             <div className="overflow-x-auto bg-white rounded-xl shadow min-h-screen p-4">
-                <h2 className="text-2xl font-bold mb-4">Pending Riders</h2>
+                <h2 className="text-2xl font-bold mb-4 text-[#03464D]">Pending Riders</h2>
                 {riders.length === 0 ? (
                     <p className="text-center text-xl font-bold text-gray-500">
                         No active deliveries

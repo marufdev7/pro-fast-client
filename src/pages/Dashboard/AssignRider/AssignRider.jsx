@@ -73,7 +73,7 @@ const AssignRider = () => {
 
     return (
         <div className="bg-white rounded-xl shadow min-h-screen p-4">
-            <h2 className="text-2xl font-bold mb-4">Assign Rider</h2>
+            <h2 className="text-2xl font-bold mb-4 text-[#03464D]">Assign Rider</h2>
 
             {parcels.length === 0 ? (
                 <p className="text-gray-500 text-center text-xl font-bold">
@@ -144,7 +144,7 @@ const AssignRider = () => {
             {selectedParcel && (
                 <div data-aos="zoom-in" data-aos-duration="300" className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-md bg-black/30">
                     <div className="bg-white rounded-lg w-full max-w-3xl p-6">
-                        <h3 className="text-lg font-semibold mb-2">
+                        <h3 className="text-lg font-semibold mb-2 text-[#03464D]">
                             Assign Rider
                         </h3>
 

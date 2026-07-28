@@ -8,7 +8,6 @@ import UserDashboardHome from './UserDashboardHome';
 
 const DashboardHome = () => {
     const { role, roleLoading } = useUserRole();
-    console.log(role, roleLoading);
 
     if (roleLoading) {
         {

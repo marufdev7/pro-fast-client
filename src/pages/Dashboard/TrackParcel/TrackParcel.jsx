@@ -17,7 +17,7 @@ const TrackParcel = () => {
 
     return (
         <div>
-            <h1 className="text-2xl font-bold">Track Your Parcel</h1>
+            <h1 className="text-2xl font-bold text-[#03464D]">Track Your Parcel</h1>
             <p className="mt-2">Tracking ID: {tracking_id}</p>
 
             <ul className="timeline timeline-vertical">

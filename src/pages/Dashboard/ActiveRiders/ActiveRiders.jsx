@@ -50,7 +50,7 @@ const ActiveRiders = () => {
     return (
         <div className="p-4 bg-white rounded-xl min-h-screen shadow">
             <div className="flex flex-col md:flex-row justify-between gap-3 mb-4">
-                <h2 className="text-2xl font-semibold">Active Riders</h2>
+                <h2 className="text-2xl font-semibold text-[#03464D]">Active Riders</h2>
 
                 <input
                     type="text"

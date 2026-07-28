@@ -4,34 +4,38 @@ import ProFastLogo from '../../../components/ProFastLogo/ProFastLogo';
 import { MdArrowOutward } from 'react-icons/md';
 import useAuth from '../../../hooks/useAuth';
 import { RiMenu2Line } from 'react-icons/ri';
+import Loading from '../../../components/Loading/Loading';
 
 const Navbar = () => {
 
-    const { user, logOut } = useAuth();
+    const { user,loading, logOut } = useAuth();
 
     const handleLogout = () => {
         logOut()
             .catch(err => console.log(err));
     };
 
+    if (loading) {
+        return <Loading />;
+    }
 
     const navItems = <>
-        <li><NavLink to={'/'}>Home</NavLink></li>
-        <li><NavLink to={'/send-parcels'}>Send Parcel</NavLink></li>
+        <li><NavLink className="text-[#03464D]" to={'/'}>Home</NavLink></li>
+        <li><NavLink className="text-[#03464D]" to={'/send-parcel'}>Send Parcel</NavLink></li>
         {
             user &&
             <>
                 <li>
-                    <NavLink to={'/dashboard/my-parcels'}>My Parcel</NavLink>
+                    <NavLink className="text-[#03464D]" to={'/dashboard/my-parcels'}>My Parcel</NavLink>
                 </li>
                 <li>
-                    <NavLink to={'/dashboard'}>Dashboard</NavLink>
+                    <NavLink className="text-[#03464D]" to={'/dashboard'}>Dashboard</NavLink>
                 </li>
             </>
         }
-        <li><NavLink to={'/be-a-rider'}>Be a Rider</NavLink></li>
-        <li><NavLink to={'/coverage'}>Coverage</NavLink></li>
-        <li><NavLink to={'/about'}>About Us</NavLink></li>
+        <li><NavLink className="text-[#03464D]" to={'/be-a-rider'}>Be a Rider</NavLink></li>
+        <li><NavLink className="text-[#03464D]" to={'/coverage'}>Coverage</NavLink></li>
+        <li><NavLink className="text-[#03464D]" to={'/about'}>About Us</NavLink></li>
     </>
     return (
         <div className="navbar bg-white shadow-sm pt-4 pb-4 pl-5 pr-5 rounded-xl">
@@ -46,7 +50,7 @@ const Navbar = () => {
                         {navItems}
                     </ul>
                 </div>
-                <div className='hidden md:block'>
+                <div className='hidden md:block text-[#03464D]'>
                     <ProFastLogo />
                 </div>
             </div>
@@ -60,8 +64,8 @@ const Navbar = () => {
 
                 {user ? (
                     <>
-                        <span>
-                            <img src={user?.photoURL} className="lg:w-[50px] lg:h-[50px] object-cover rounded-full" alt="user" />
+                        <span className="block h-8 w-8 shrink-0 overflow-hidden rounded-full md:h-10 md:w-10 lg:h-[50px] lg:w-[50px]">
+                            <img src={user?.photoURL} className="h-full w-full object-cover" alt="user" />
                         </span>
                         <span className="text-sm text-gray-700">
                             {user?.displayName || user?.email}
