@@ -5,10 +5,12 @@ import { MdArrowOutward } from 'react-icons/md';
 import useAuth from '../../../hooks/useAuth';
 import { RiMenu2Line } from 'react-icons/ri';
 import Loading from '../../../components/Loading/Loading';
+import useUserRole from '../../../hooks/useUserRole';
 
 const Navbar = () => {
 
-    const { user,loading, logOut } = useAuth();
+    const { user, loading, logOut } = useAuth();
+    const { role, roleLoading } = useUserRole();
 
     const handleLogout = () => {
         logOut()
@@ -33,7 +35,9 @@ const Navbar = () => {
                 </li>
             </>
         }
-        <li><NavLink to={'/be-a-rider'}>Be a Rider</NavLink></li>
+        {!roleLoading && role !== 'rider' && (
+            <li><NavLink to={'/be-a-rider'}>Be a Rider</NavLink></li>
+        )}
         <li><NavLink to={'/coverage'}>Coverage</NavLink></li>
         <li><NavLink to={'/about'}>About Us</NavLink></li>
     </>
@@ -67,7 +71,7 @@ const Navbar = () => {
                         <span className="block h-8 w-8 shrink-0 overflow-hidden rounded-full md:h-10 md:w-10 lg:h-[50px] lg:w-[50px]">
                             <img src={user?.photoURL} className="h-full w-full object-cover" alt="user" />
                         </span>
-                        <span className="text-sm text-gray-700">
+                        <span className="text-sm font-bold text-gray-700">
                             {user?.displayName || user?.email}
                         </span>
 

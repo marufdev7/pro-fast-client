@@ -1,15 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router';
-import {
-    FiAlertCircle,
-    FiArrowRight,
-    FiBox,
-    FiCheckCircle,
-    FiClock,
-    FiTruck,
-    FiUserPlus,
-    FiUsers,
-} from 'react-icons/fi';
+import { FiAlertCircle, FiArrowRight, FiBox, FiCheckCircle, FiClock, FiTruck, FiUserPlus, FiUsers } from 'react-icons/fi';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
 const statusStyles = {
@@ -46,11 +37,7 @@ const formatStatus = (status) => String(status || 'Unknown')
 const AdminDashboardHome = () => {
     const axiosSecure = useAxiosSecure();
 
-    const {
-        data: parcelStats = [],
-        isPending,
-        isError,
-    } = useQuery({
+    const { data: parcelStats = [], isPending, isError } = useQuery({
         queryKey: ['delivery-status-stat'],
         queryFn: async () => {
             const res = await axiosSecure.get('/parcels/delivery-status/stats');
