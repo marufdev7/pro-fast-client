@@ -11,11 +11,11 @@ const AssignRider = () => {
     const queryClient = useQueryClient();
 
     // Load assignable parcels
-    const { data: parcels = [], isPending, refetch } = useQuery({
+    const { data: parcels = [], isPending } = useQuery({
         queryKey: ["assignable-parcels"],
         queryFn: async () => {
             const res = await axiosSecure.get(
-                "/parcels?payment_status=paid&parcel_status=pending"
+                "/parcels?payment_status=paid&parcel_status=parcel-created"
             );
             return res.data;
         },
@@ -45,9 +45,10 @@ const AssignRider = () => {
             });
         },
         onSuccess: () => {
-            Swal.fire("Assigned", "Parcel is now in transit", "success");
-            queryClient.invalidateQueries(["assignable-parcels"]);
-            refetch();
+            Swal.fire("Assigned", "Rider assigned successfully", "success");
+            queryClient.invalidateQueries({ queryKey: ["assignable-parcels"] });
+            queryClient.invalidateQueries({ queryKey: ["riders"] });
+            setSelectedParcel(null);
         },
         onError: () => {
             Swal.fire("Error", "Failed to assign rider", "error");
