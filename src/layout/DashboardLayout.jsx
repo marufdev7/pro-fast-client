@@ -159,10 +159,10 @@ const dashboardLayout = () => {
                                 </NavLink>
                             </li>
                             <li className="mt-2">
-                                <button className="flex item-center is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Settings">
+                                <NavLink to="/dashboard/settings" className="flex items-center is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Settings">
                                     <IoSettingsOutline size={20} />
                                     <span className="is-drawer-close:hidden">Settings</span>
-                                </button>
+                                </NavLink>
                             </li>
                         </div>
                     </ul>
