@@ -39,7 +39,7 @@ const Navbar = () => {
             <li><NavLink to={'/be-a-rider'}>Be a Rider</NavLink></li>
         )}
         <li><NavLink to={'/coverage'}>Coverage</NavLink></li>
-        <li><NavLink to={'/about'}>About Us</NavLink></li>
+        <li><NavLink to={'/about-us'}>About Us</NavLink></li>
     </>
     return (
         <div className="navbar bg-white shadow-sm pt-4 pb-4 pl-5 pr-5 rounded-xl">

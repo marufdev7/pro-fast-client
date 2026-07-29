@@ -26,6 +26,7 @@ import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
 import UpdateProfile from "../pages/Dashboard/UpdateProfile/UpdateProfile";
 import Settings from "../pages/Dashboard/Settings/Settings";
 import Error from "../pages/Error/Error";
+import AboutUs from "../pages/AboutUs/AboutUs";
 
 export const router = createBrowserRouter([
     {
@@ -45,6 +46,10 @@ export const router = createBrowserRouter([
             {
                 path: 'forbidden',
                 Component: Forbidden
+            },
+            {
+                path: 'about-us',
+                Component: AboutUs,
             },
             {
                 path: 'send-parcel',
