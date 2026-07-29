@@ -149,9 +149,9 @@ const dashboardLayout = () => {
                                 </>
                             }
 
-                            <li className='mt-2'>
-                                <NavLink
-                                    // to='/dashboard/update-profile'
+                                <li className='mt-2'>
+                                    <NavLink
+                                    to='/dashboard/update-profile'
                                     className="flex items-center is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Update Profile"
                                 >
                                     <FiUser size={20} />

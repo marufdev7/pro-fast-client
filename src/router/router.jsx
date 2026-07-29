@@ -23,6 +23,8 @@ import RiderRoute from "../routes/RiderRoute";
 import AcceptedParcels from "../pages/Dashboard/AcceptedParcels/AcceptedParcels";
 import CompletedDeliveries from "../pages/Dashboard/CompletedDeliveries/CompletedDeliveries";
 import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
+import UpdateProfile from "../pages/Dashboard/UpdateProfile/UpdateProfile";
+import Settings from "../pages/Dashboard/Settings/Settings";
 
 export const router = createBrowserRouter([
     {
@@ -91,6 +93,14 @@ export const router = createBrowserRouter([
             {
                 path: 'track-parcel/:tracking_id',
                 Component: TrackParcel
+            },
+            {
+                path: 'update-profile',
+                Component: UpdateProfile
+            },
+            {
+                path: 'settings',
+                Component: Settings,
             },
 
             //rider routes
