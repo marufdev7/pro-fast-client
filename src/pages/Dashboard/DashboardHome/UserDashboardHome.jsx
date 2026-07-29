@@ -7,7 +7,7 @@ const UserDashboardHome = () => {
     const firstName = user?.displayName?.trim().split(' ')[0] || 'there';
 
     return (
-        <main className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-10">
+        <main className="mx-auto w-full px-4 py-6 sm:px-6 lg:px-8 lg:py-10">
             <section className="relative overflow-hidden rounded-3xl bg-[#003B3F] px-6 py-8 text-white shadow-lg sm:px-8 sm:py-10">
                 <div className="absolute -right-16 -top-20 h-56 w-56 rounded-full bg-[#00A88E]/30 blur-3xl" />
                 <div className="absolute -bottom-24 right-28 h-48 w-48 rounded-full bg-[#CAEB66]/15 blur-3xl" />
