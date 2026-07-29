@@ -215,7 +215,7 @@ const AboutUs = () => {
                             Get started
                         </Link>
                         <Link
-                            to="/contact"
+                            to="#"
                             className="btn border-white/40 bg-transparent text-white hover:bg-white/10"
                         >
                             Contact us
