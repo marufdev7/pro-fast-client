@@ -24,7 +24,12 @@ const GoogleLogin = ({ name }) => {
                     last_log_in: new Date().toISOString()
                 }
 
-                const res = await axiosInstance.post('/users', userInfo);
+                // the AuthContext user isn't set yet, so take the token straight
+                // off the credential we just got back
+                const token = await user.getIdToken();
+                const res = await axiosInstance.post('/users', userInfo, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
                 console.log('user updated info',res.data);
 
                 console.log("Login Successful. Welcome Back:", result.user?.displayName);

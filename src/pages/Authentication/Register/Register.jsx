@@ -35,8 +35,19 @@ const Register = () => {
                     last_log_in: new Date().toISOString()
                 }
 
-                const userRes = await axiosInstance.post('/users', userInfo);
-                console.log(userRes.data);
+                // the AuthContext user isn't set yet, so take the token straight
+                // off the credential we just got back
+                try {
+                    const token = await result.user.getIdToken();
+                    const userRes = await axiosInstance.post('/users', userInfo, {
+                        headers: { Authorization: `Bearer ${token}` }
+                    });
+                    console.log(userRes.data);
+                } catch (err) {
+                    // don't strand the user on the form — the account exists in
+                    // Firebase, and logging in will retry the upsert
+                    console.log('Failed to save user record:', err);
+                }
 
                 // update user profile in firebase
                 const userProfile = {

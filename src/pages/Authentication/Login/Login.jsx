@@ -5,10 +5,12 @@ import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import GoogleLogin from '../../../components/SocialLogin/GoogleLogin';
 import useAuth from '../../../hooks/useAuth';
+import useAxios from '../../../hooks/useAxios';
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { signIn } = useAuth();
+    const axiosInstance = useAxios();
     const [show, setShow] = useState(false);
     const location = useLocation();
     const navigate = useNavigate()
@@ -18,8 +20,25 @@ const Login = () => {
 
     const onSubmit = data => {
         signIn(data.email, data.password)
-            .then(result => {
+            .then(async (result) => {
                 console.log("Login Successful.");
+
+                // upsert the user record: refreshes last_log_in, and recreates the
+                // document for accounts that only exist in Firebase
+                try {
+                    const token = await result.user.getIdToken();
+                    await axiosInstance.post('/users', {
+                        email: result.user.email,
+                        role: 'user', // ignored by the server if the user already exists
+                        created_at: new Date().toISOString(),
+                        last_log_in: new Date().toISOString()
+                    }, {
+                        headers: { Authorization: `Bearer ${token}` }
+                    });
+                } catch (err) {
+                    console.log('Failed to sync user record:', err);
+                }
+
                 navigate(from);
             })
             .catch(err => console.log(err));
