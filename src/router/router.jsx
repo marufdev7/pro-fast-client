@@ -25,11 +25,13 @@ import CompletedDeliveries from "../pages/Dashboard/CompletedDeliveries/Complete
 import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
 import UpdateProfile from "../pages/Dashboard/UpdateProfile/UpdateProfile";
 import Settings from "../pages/Dashboard/Settings/Settings";
+import Error from "../pages/Error/Error";
 
 export const router = createBrowserRouter([
     {
         path: "/",
         Component: RootLayout,
+        errorElement: <Error />,
         children: [
             {
                 index: true,
